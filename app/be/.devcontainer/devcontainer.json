@@ -1,0 +1,18 @@
+{
+  "name": "be_todo_app",
+  "dockerComposeFile": "../../../docker/docker-compose.yml",
+  "service": "java",
+  "shutdownAction": "none",
+  "workspaceFolder": "/app",
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+  "extensions": [
+	"richardwillis.vscode-gradle-extension-pack",
+	"dbaeumer.vscode-eslint",
+	"MS-CEINTL.vscode-language-pack-ja",
+	"esbenp.prettier-vscode",
+	"GabrielBB.vscode-lombok",
+	"vscjava.vscode-java-pack"
+]
+}

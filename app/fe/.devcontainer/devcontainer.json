@@ -1,0 +1,21 @@
+{
+  "name": "fe_todo_app",
+  "dockerComposeFile": "../../../docker/docker-compose.yml",
+  "service": "nextjs",
+  "shutdownAction": "none",
+  "workspaceFolder": "/app",
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+  "extensions": [
+    "PulkitGangwar.nextjs-snippets",
+    "BracketPairColorDLW.bracket-pair-color-dlw",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "dsznajder.es7-react-js-snippets",
+    "bradlc.vscode-tailwindcss",
+    "csstools.postcss",
+    "oderwat.indent-rainbow",
+    "Zignd.html-css-class-completion"
+  ]
+}

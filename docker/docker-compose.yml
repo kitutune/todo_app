@@ -1,0 +1,56 @@
+version: '3'
+# docker-compose build --no-cache --force-rm
+# docker-compose up -d 
+services:
+  mysql:
+    # サービス名
+    build: ./mysql
+    container_name: mysql_todo_app # コンテナの名前
+    env_file:
+      - ./mysql/db.env
+    volumes:
+      # 永続保存先
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/log:/var/log/mysql
+    ports:
+      - 3306:3306
+  dbclient:
+    image: phpmyadmin/phpmyadmin # dockerhubのdockerimageの名称
+    container_name: dbclient_todo_app
+    environment:
+      - PMA_ARBITARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=dev_usr
+      - PMA_PASSWORD=dev_usr_pass
+    links:
+      - mysql
+    ports:
+      - "4200:80"
+    volumes:
+      - ./dbclient/sessions:/sessions
+    depends_on:
+      - mysql
+  java:
+    build: ./java # dockerfileのある位置
+    container_name: java_todo_app
+    env_file:
+      - ./mysql/db.env
+    tty: true
+    working_dir: /app
+    volumes:
+      - ../app/be:/app
+    ports:
+      - 8080:8080
+      - 5050:5050
+    depends_on:
+      - mysql
+  nextjs:
+    build: ./nextjs
+    container_name: nextjs_todo_app
+    tty: true
+    ports:
+      - "3000:3000" # 開発用
+      - "4000:4000" # 本番用
+    volumes:
+      - ../app/fe:/app
+    command: sleep infinity
