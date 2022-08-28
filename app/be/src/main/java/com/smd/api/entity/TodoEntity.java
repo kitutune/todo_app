@@ -22,13 +22,13 @@ import lombok.Setter;
 public class TodoEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    // @Column(name = "id")
+    @Column(name = "id")
     private Integer id;
     @Column(name = "production_date")
     private Date productionDate;
     @Column(name = "final_deadline")
     private Date finalDeadline;
-    // @Column(name = "todo")
+    @Column(name = "todo")
     private String todo;
     @Column(name = "is_done")
     private String isDone;
