@@ -1,9 +1,7 @@
 package com.smd.api.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smd.api.entity.TodoEntity;
 import com.smd.api.form.TodoForm;
-import com.smd.api.repository.TodoRepository;
 import com.smd.api.service.TodoServiceImp;
 
 import lombok.AllArgsConstructor;
@@ -30,7 +27,6 @@ import lombok.AllArgsConstructor;
 @CrossOrigin(origins = "http://localhost:3000")
 public class TodoController {
     private final TodoServiceImp todoServiceImp;
-    private final TodoRepository todoRepository;
 
     /*
      * GET
@@ -44,32 +40,25 @@ public class TodoController {
 
     /*
      * GET
+     * TodoリストをDBから取得し返す
      * 
      * @Return 全てのTodoデータ
      */
-    @GetMapping("/all/todo")
-    // @GetMapping
+    @GetMapping("/all")
     public List<TodoForm> getAllTodo() {
         List<TodoForm> todolist = todoServiceImp.getAllTodo();
-        // List<TodoForm> todolist = new ArrayList<TodoForm>();
-        // // System.out.println(todolist);
-        // System.out.println("きてる？");
-        // // System.out.println(todolist);
-        // System.out.println(todoRepository.findAll());
-        // BeanUtils.copyProperties(todoRepository.findAll(), todolist);
         return todolist;
     }
 
     /*
      * POST
-     * todoをDBに保存
+     * FEから送られてきたTodoデータをDBに保存
      * 
-     * @param formに入力されたtodoデータ
+     * @param formに入力されたTodoデータ
      * 
      * @return
      */
-    @PostMapping("/regist/todo")
-    // @PostMapping
+    @PostMapping("/regist")
     public ResponseEntity<TodoEntity> registerTodo(@RequestBody @Validated TodoForm todoF, BindingResult result) {
         if (result.hasErrors()) {
             // error処理
@@ -80,14 +69,13 @@ public class TodoController {
 
     /*
      * GET
-     * 渡されたidから登録されているtodoデータをフロントに返す
+     * FEから渡されたidから登録されているTodoデータをフロントに返す
      * 
-     * @param 登録されているtodoのid
+     * @param 登録されているTodoデータのid
      * 
-     * @return 渡されたidと一致しているtodoデータ
+     * @return 渡されたidと一致しているTodoデータ
      */
-    @GetMapping("/todo/{id}")
-    // @GetMapping("/{id}")
+    @GetMapping("/single/{id}")
     public TodoForm getTodoById(@PathVariable("id") Integer id) {
         TodoForm todof = todoServiceImp.getTodoById(id);
         return todof;
@@ -96,13 +84,12 @@ public class TodoController {
     /*
      * PUT
      * 
-     * @param 編集後のtodoデータ
+     * @param 編集後のTodoデータ
      * 
      * @return
-     * todoを上書き（編集）するメソッド
+     * Todoを上書き（編集）するメソッド
      */
-    @PutMapping("/todo/edit/{id}")
-    // @PutMapping("/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<TodoEntity> editTodo(@PathVariable("id") Integer id, @RequestBody @Validated TodoForm todoF,
             BindingResult result) {
         if (result.hasErrors()) {
@@ -113,14 +100,13 @@ public class TodoController {
 
     /*
      * DELETE
-     * todoを削除するメソッド
+     * Todoを削除するメソッド
      * 
-     * @param 削除したいtodoのid
+     * @param 削除したいTodoのid
      * 
      * @return 結果をbooleanで
      */
-    @DeleteMapping("/todo/delete/{id}")
-    // @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public boolean deleteTodo(@PathVariable("id") Integer id) {
         todoServiceImp.deleteTodo(id);
         return true;
@@ -128,14 +114,13 @@ public class TodoController {
 
     /*
      * PUT
-     * todoの完了/未完了を切り替えるメソッド
+     * Todoの完了/未完了を切り替えるメソッド
      * 
-     * @param チェックを切り替えたいtodoのid
+     * @param チェックを切り替えたいTodoのid
      * 
      * @return 結果をbooleanで
      */
-    @PutMapping("/todo/toggle/isdone/{id}")
-    // @PutMapping("/{id}")
+    @PutMapping("/toggle/isdone/{id}")
     public String isDone(@PathVariable("id") Integer id) {
         todoServiceImp.toggleIsDone(id);
         return "true";
@@ -143,12 +128,11 @@ public class TodoController {
 
     /*
      * DELETE
-     * todoを全て削除するメソッド
+     * Todoを全て削除するメソッド
      * 
      * @return 結果をbooleanで
      */
-    @DeleteMapping("/todo/alldelete")
-    // @DeleteMapping
+    @DeleteMapping("/alldelete")
     public boolean allDeleteTodo() {
         todoServiceImp.allDeleteTodo();
         return true;
