@@ -1,9 +1,9 @@
 import { atom } from "recoil";
-import { RegistedTodo } from "../../types/todo";
+import { TodoFormValue } from "../../types/todo";
 // バケツリレーをしないためにRecoilを採用
 // 編集するユーザーのデータを管理する変数を作成する
-export const todoListState = atom<RegistedTodo[]>({
-  key: "editUserAtom",
+export const todoListState = atom<TodoFormValue[]>({
+  key: "todoListAtom",
   default: [
     {
       // ユニーク
