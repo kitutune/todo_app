@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { todoListState } from "../atom/GET/TodoList";
@@ -10,7 +11,6 @@ const Todo = () => {
 
   // useHook
   const getTodoList = useGetUserList();
-
   // コンポーネントが読み込まれた際に一度だけ実行する
   useEffect(() => {
     getTodoList();
@@ -24,8 +24,14 @@ const Todo = () => {
       <td className="border px-4 py-2" data-id={todoData.id}>
         {todoData.id}
       </td>
-      <td className="border px-4 py-2">{todoData.productionDate}</td>
-      <td className="border px-4 py-2">{todoData.finalDeadline}</td>
+      <td className="border px-4 py-2">
+        {/* ライブラリdayjsを使用してDate型をフォーマット */}
+        {dayjs(todoData.productionDate).locale("ja").format("YYYY/MM/DD(dd)")}
+      </td>
+      <td className="border px-4 py-2">
+        {/* ライブラリdayjsを使用してDate型をフォーマット */}
+        {dayjs(todoData.finalDeadline).locale("ja").format("YYYY/MM/DD(dd)")}
+      </td>
       <td className="border px-4 py-2">{todoData.todo}</td>
       {/* ※カスタムパラメータは"data-"という形式でないと型エラーを吐く */}
       <td className="border px-4 py-2" data-isDone={todoData.isDone}>
@@ -57,3 +63,6 @@ const Todo = () => {
   );
 };
 export default Todo;
+function useFormatDate() {
+  throw new Error("Function not implemented.");
+}
