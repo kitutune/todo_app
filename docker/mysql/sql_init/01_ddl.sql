@@ -8,7 +8,8 @@ CREATE TABLE
         -- ユニーク
         id int PRIMARY KEY AUTO_INCREMENT,
         -- todoの作成日（編集時に更新するかはまだ未定）
-        production_date datetime DEFAULT CURRENT_TIMESTAMP,
+        -- production_date datetime DEFAULT CURRENT_TIMESTAMP,
+        production_date datetime,
         -- todoの最終期限
         final_deadline datetime,
         -- やること
@@ -16,6 +17,6 @@ CREATE TABLE
         -- 作業済み
         is_done varchar(5) DEFAULT "false",
         -- 重要度
-        priority varchar(1) DEFAULT 0,
+        priority varchar(1) DEFAULT 1,
         INDEX(id)
     );
