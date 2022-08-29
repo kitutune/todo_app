@@ -4,6 +4,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { todoListState } from "../atom/GET/TodoList";
 import { editTodoState } from "../atom/PUT/Todo";
 import { TodoForm } from "../components/TodoForm";
+import { useDeleteAllTodo } from "../service/Delete/useDeleteAllTodo";
 import { useDeleteTodo } from "../service/Delete/useDeleteTodo";
 import { useGetTodo } from "../service/GET/useGetTodo";
 import { useGetTodoList } from "../service/GET/useGetTodoList";
@@ -19,6 +20,7 @@ const Todo = () => {
   const getTodoList = useGetTodoList();
   const deleteTodo = useDeleteTodo();
   const getTodoById = useGetTodo();
+  const deleteAllTodo = useDeleteAllTodo();
 
   // 編集ボタン
   const fetchEditTodoId = useCallback(
@@ -101,6 +103,7 @@ const Todo = () => {
   return (
     <div>
       <TodoForm />
+      <button onClick={() => deleteAllTodo()}>全てのTodo削除</button>
       <table className="table-auto">
         <thead>
           <tr>
@@ -116,7 +119,7 @@ const Todo = () => {
         </thead>
         <tbody>
           {/* recoilTodoListの最初に登録されているtodoのidが空文字でなければtodolistを表示する */}
-          {!(recoilTodoList[0].id === "") ? showTodoList : null}
+          {!recoilTodoList ? null : showTodoList}
         </tbody>
       </table>
     </div>
