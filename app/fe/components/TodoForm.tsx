@@ -30,7 +30,7 @@ export const TodoForm = () => {
     sendingMethod(values);
   });
 
-  const editUserTodo = (recoilEditTodo: TodoFormValue) => {
+  const editTodo = (recoilEditTodo: TodoFormValue) => {
     if (recoilEditTodo.id === "") {
       console.log("中身が空");
       return;
@@ -41,7 +41,7 @@ export const TodoForm = () => {
       finalDeadline: recoilEditTodo.finalDeadline,
       todo: recoilEditTodo.todo,
       isDone: recoilEditTodo.isDone,
-      priority: recoilEditTodo.priority,
+      priority: Number(recoilEditTodo.priority),
     });
   };
 
@@ -59,7 +59,7 @@ export const TodoForm = () => {
       return;
     }
     // ② ①以外の場合は編集データとして扱う
-    editUserTodo(recoilEditTodo);
+    editTodo(recoilEditTodo);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recoilEditTodo]);
 
@@ -70,13 +70,7 @@ export const TodoForm = () => {
       return console.log("空の値は登録できません");
     }
     // ②編集データを補完するrecoilEditTodoにデータが存在するなら編集データとして処理する
-    if (
-      !(
-        recoilEditTodo.id === "" &&
-        !(formTodo.id == "") &&
-        !(formTodo.id == null)
-      )
-    ) {
+    if (!(recoilEditTodo.id == "") || !(formTodo.id == "")) {
       console.log("編集します");
       console.log("編集後の内容", formTodo);
       dbEdited(formTodo);

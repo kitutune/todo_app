@@ -7,7 +7,7 @@ export type TodoFormValue = {
   // やること
   todo: string;
   // 作業済み
-  isDone: string;
+  isDone: string | boolean;
   // 重要度
-  priority: string;
+  priority: int;
 };
