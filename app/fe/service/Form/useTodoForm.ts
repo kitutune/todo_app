@@ -12,9 +12,9 @@ export const useTodoForm = () => {
       // やること
       todo: "",
       // 作業済み
-      isDone: "",
+      isDone: false,
       // 重要度
-      priority: "",
+      priority: 1,
     },
 
     validate: {
