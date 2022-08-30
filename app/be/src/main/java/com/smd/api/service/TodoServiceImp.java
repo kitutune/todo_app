@@ -55,6 +55,7 @@ public class TodoServiceImp implements TodoService {
         TodoEntity todoE = new TodoEntity();
         // FormをEntityにコンバート
         BeanUtils.copyProperties(todoF, todoE);
+        System.out.println(todoE.getTodo());
         // Jpaの機能でDBに登録する
         todoRepository.save(todoE);
         return ResponseEntity.ok(todoE);
@@ -81,7 +82,8 @@ public class TodoServiceImp implements TodoService {
         todoE.setProductionDate(todoF.getProductionDate());
         todoE.setFinalDeadline(todoF.getFinalDeadline());
         todoE.setIsDone(todoF.getIsDone());
-
+        todoRepository.save(todoE);
+        System.out.println(todoF.getTodo() == todoRepository.getReferenceById(id).getTodo());
         return ResponseEntity.ok(todoE);
     }
 

@@ -46,6 +46,8 @@ public class TodoController {
      */
     @GetMapping("/all")
     public List<TodoForm> getAllTodo() {
+        System.out.println("GET");
+        System.out.println("getAllTodo");
         List<TodoForm> todolist = todoServiceImp.getAllTodo();
         return todolist;
     }
@@ -61,8 +63,11 @@ public class TodoController {
     @PostMapping("/regist")
     public ResponseEntity<TodoEntity> registerTodo(@RequestBody @Validated TodoForm todoF, BindingResult result) {
         if (result.hasErrors()) {
+            System.out.println("error");
             // error処理
         }
+        System.out.println("POST");
+        System.out.println("registerTodo");
         return todoServiceImp.saveTodo(todoF);
 
     }
@@ -77,6 +82,8 @@ public class TodoController {
      */
     @GetMapping("/single/{id}")
     public TodoForm getTodoById(@PathVariable("id") Integer id) {
+        System.out.println("GET");
+        System.out.println("getTodoById");
         TodoForm todof = todoServiceImp.getTodoById(id);
         return todof;
     }
@@ -93,8 +100,17 @@ public class TodoController {
     public ResponseEntity<TodoEntity> editTodo(@PathVariable("id") Integer id, @RequestBody @Validated TodoForm todoF,
             BindingResult result) {
         if (result.hasErrors()) {
+            System.out.println("error");
             // error処理
         }
+        System.out.println("PUT");
+        System.out.println("editTodo");
+        System.out.println(todoF.getId());
+        System.out.println(todoF.getProductionDate());
+        System.out.println(todoF.getFinalDeadline());
+        System.out.println(todoF.getTodo());
+        System.out.println(todoF.getIsDone());
+        System.out.println(todoF.getPriority());
         return todoServiceImp.updateTodo(id, todoF);
     }
 
@@ -108,6 +124,8 @@ public class TodoController {
      */
     @DeleteMapping("/delete/{id}")
     public boolean deleteTodo(@PathVariable("id") Integer id) {
+        System.out.println("DELETE");
+        System.out.println("deleteTodo");
         todoServiceImp.deleteTodo(id);
         return true;
     }
@@ -122,6 +140,8 @@ public class TodoController {
      */
     @PutMapping("/toggle/isdone/{id}")
     public String isDone(@PathVariable("id") Integer id) {
+        System.out.println("PUT");
+        System.out.println("isDone");
         todoServiceImp.toggleIsDone(id);
         return "true";
     }
@@ -134,6 +154,8 @@ public class TodoController {
      */
     @DeleteMapping("/alldelete")
     public boolean allDeleteTodo() {
+        System.out.println("DELETE");
+        System.out.println("allDeleteTodo");
         todoServiceImp.allDeleteTodo();
         return true;
     }
