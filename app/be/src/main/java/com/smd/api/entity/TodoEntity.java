@@ -2,6 +2,8 @@ package com.smd.api.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +20,8 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+// https://qiita.com/niwasawa/items/9735d5dc4a4a71e84ccd
+@JsonIgnoreProperties({ "hibernateLazyInitializer" })
 @Table(name = "todo")
 public class TodoEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
