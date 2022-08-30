@@ -25,7 +25,7 @@ export const TodoForm = () => {
   const recoilEditTodo = useRecoilValue(editTodoState);
   console.log("使う側のRecol", recoilEditTodo);
 
-  const getFormTodo = form.onSubmit((values) => {
+  const getFormTodo = form.onSubmit((values: TodoFormValue) => {
     console.log("values", values);
     sendingMethod(values);
   });
@@ -40,7 +40,7 @@ export const TodoForm = () => {
       productionDate: recoilEditTodo.productionDate,
       finalDeadline: recoilEditTodo.finalDeadline,
       todo: recoilEditTodo.todo,
-      isDone: recoilEditTodo.isDone,
+      isDone: recoilEditTodo.isDone == "true" ? true : false,
       priority: Number(recoilEditTodo.priority),
     });
   };
@@ -69,15 +69,25 @@ export const TodoForm = () => {
     if (formTodo.todo === "") {
       return console.log("空の値は登録できません");
     }
+    // コンバート
+    const dbTodo = {
+      id: formTodo.id,
+      productionDate: formTodo.productionDate,
+      finalDeadline: formTodo.finalDeadline,
+      todo: formTodo.todo,
+      isDone: String(formTodo.isDone),
+      priority: String(formTodo.priority),
+    };
+
     // ②編集データを補完するrecoilEditTodoにデータが存在するなら編集データとして処理する
     if (!(recoilEditTodo.id == "") || !(formTodo.id == "")) {
       console.log("編集します");
       console.log("編集後の内容", formTodo);
-      dbEdited(formTodo);
+      dbEdited(dbTodo);
     } else {
       // ③上記条件以外なら新規登録として扱う
       console.log("新規登録します");
-      dbRegistered(formTodo);
+      dbRegistered(dbTodo);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
