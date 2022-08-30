@@ -20,12 +20,44 @@ export const useTodoForm = () => {
     validate: {
       // productionDate: (productionDate_value) =>
       //   productionDate_value.length < 1 ? "名前は必須入力です" : null,
-      // finalDeadline: (finalDeadline_value) =>
-      //   finalDeadline_value.length == 0
-      //     ? null
-      //     : /(^\d?\d{1}$)|(^1[0-4]{1}\d{1}$)|(^150$)/.test(age_value)
-      //     ? null
-      //     : "年齢は数字で150以下で入力してください",
+      finalDeadline: (finalDeadline_value, formValue) =>
+        // console.log(formValue.finalDeadline, ">=", formValue.productionDate);
+        // console.log(
+        //   formValue.finalDeadline.getFullYear() +
+        //     "/" +
+        //     (formValue.finalDeadline.getMonth() + 1) +
+        //     "/" +
+        //     formValue.finalDeadline.getDay(),
+        //   ">=",
+        //   formValue.productionDate.getFullYear() +
+        //     "/" +
+        //     (formValue.productionDate.getMonth() + 1) +
+        //     "/" +
+        //     formValue.productionDate.getDay()
+        // );
+        // console.log(
+        //   formValue.finalDeadline.getMonth(),
+        //   ">=",
+        //   formValue.productionDate.getMonth()
+        // );
+        // console.log(
+        //   formValue.finalDeadline.getDay(),
+        //   ">=",
+        //   formValue.productionDate.getDay()
+        // );
+
+        formValue.finalDeadline.getFullYear() +
+          "/" +
+          (formValue.finalDeadline.getMonth() + 1) +
+          "/" +
+          formValue.finalDeadline.getDay() <
+        formValue.productionDate.getFullYear() +
+          "/" +
+          (formValue.productionDate.getMonth() + 1) +
+          "/" +
+          formValue.productionDate.getDay()
+          ? "作成日より前の日付は選択できません"
+          : null,
       todo: (todo_value) =>
         todo_value.length < 1 ? "todoは必須入力です" : null,
       // isDone: (isDone_value) =>
