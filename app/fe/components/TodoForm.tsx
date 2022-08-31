@@ -10,6 +10,7 @@ import { DatePicker } from "@mantine/dates";
 import { useCallback, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { editTodoState } from "../atom/PUT/Todo";
+import { useConvert } from "../service/Convert/useConvert";
 import { useTodoForm } from "../service/Form/useTodoForm";
 import { usePostTodo } from "../service/Post/usePostTodo";
 import { usePutTodo } from "../service/Put/usePutTodo";
@@ -19,6 +20,7 @@ export const TodoForm = () => {
   // useHook
   const dbEdited = usePutTodo();
   const dbRegistered = usePostTodo();
+  const convertFormToEntity = useConvert();
   const form = useTodoForm();
 
   // Recoil
@@ -69,23 +71,16 @@ export const TodoForm = () => {
     if (formTodo.todo === "") {
       return console.log("空の値は登録できません");
     }
-    // コンバート
-    const dbTodo = {
-      id: formTodo.id,
-      productionDate: formTodo.productionDate,
-      finalDeadline: formTodo.finalDeadline,
-      todo: formTodo.todo,
-      isDone: String(formTodo.isDone),
-      priority: String(formTodo.priority),
-    };
+    // ②form形式のtodoをentity形式にコンバート
+    const dbTodo = convertFormToEntity(formTodo);
 
-    // ②編集データを補完するrecoilEditTodoにデータが存在するなら編集データとして処理する
+    // ③編集データを補完するrecoilEditTodoにデータが存在するなら編集データとして処理する
     if (!(recoilEditTodo.id == "") || !(formTodo.id == "")) {
       console.log("編集します");
       console.log("編集後の内容", formTodo);
       dbEdited(dbTodo);
     } else {
-      // ③上記条件以外なら新規登録として扱う
+      // ④上記条件以外なら新規登録として扱う
       console.log("新規登録します");
       dbRegistered(dbTodo);
     }
