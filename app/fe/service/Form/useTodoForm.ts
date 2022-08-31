@@ -1,6 +1,9 @@
 import { useForm } from "@mantine/form";
+import { useFormatDate } from "../Convert/useFormatDate";
 
 export const useTodoForm = () => {
+  // useHook
+  const formatDateTypeToDate = useFormatDate();
   const form = useForm({
     initialValues: {
       // ユニーク
@@ -21,41 +24,10 @@ export const useTodoForm = () => {
       // productionDate: (productionDate_value) =>
       //   productionDate_value.length < 1 ? "名前は必須入力です" : null,
       finalDeadline: (finalDeadline_value, formValue) =>
-        // console.log(formValue.finalDeadline, ">=", formValue.productionDate);
-        // console.log(
-        //   formValue.finalDeadline.getFullYear() +
-        //     "/" +
-        //     (formValue.finalDeadline.getMonth() + 1) +
-        //     "/" +
-        //     formValue.finalDeadline.getDay(),
-        //   ">=",
-        //   formValue.productionDate.getFullYear() +
-        //     "/" +
-        //     (formValue.productionDate.getMonth() + 1) +
-        //     "/" +
-        //     formValue.productionDate.getDay()
-        // );
-        // console.log(
-        //   formValue.finalDeadline.getMonth(),
-        //   ">=",
-        //   formValue.productionDate.getMonth()
-        // );
-        // console.log(
-        //   formValue.finalDeadline.getDay(),
-        //   ">=",
-        //   formValue.productionDate.getDay()
-        // );
-
-        formValue.finalDeadline.getFullYear() +
-          "/" +
-          (formValue.finalDeadline.getMonth() + 1) +
-          "/" +
-          formValue.finalDeadline.getDay() <
-        formValue.productionDate.getFullYear() +
-          "/" +
-          (formValue.productionDate.getMonth() + 1) +
-          "/" +
-          formValue.productionDate.getDay()
+        // 日付までを抜き出して比較
+        // Stringで比較できる様子
+        formatDateTypeToDate(formValue.finalDeadline) <
+        formatDateTypeToDate(formValue.productionDate)
           ? "作成日より前の日付は選択できません"
           : null,
       todo: (todo_value) =>
