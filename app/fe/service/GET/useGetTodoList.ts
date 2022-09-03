@@ -1,11 +1,14 @@
 import axios, { AxiosResponse } from "axios";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { todoListState } from "../../atom/GET/TodoList";
 export const useGetTodoList = () => {
+  // DB取得を実行するか否かのフラグ
+  const [isFetchDB, setIsFetchDB] = useState(true);
   // java側でGETメソッドを実装しているURL、リクエスト先
   const BASEURL = "http://localhost:8080/api/all";
-  // 状態を入力する側のRecoil
+  // Recoil
+  // 状態を入力する側のRecoil:useSetRecoilState
   const setRecoilTodoList = useSetRecoilState(todoListState);
   // Todoテーブルから取得
   const getTodoList = useCallback(async () => {
@@ -25,5 +28,22 @@ export const useGetTodoList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return getTodoList;
+  // getTodoListを実行させるためのフラグをON(true)にする
+  const isFetchDBTrue = () => {
+    setIsFetchDB(true);
+  };
+
+  useEffect(() => {
+    // フラグを用意する
+    if (isFetchDB) {
+      console.log("DBからデータを取得します");
+
+      getTodoList();
+      // 再度getTodoListを読み込まないようにfalseに設定
+      setIsFetchDB(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFetchDB]);
+
+  return isFetchDBTrue;
 };
