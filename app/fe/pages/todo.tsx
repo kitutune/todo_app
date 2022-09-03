@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { todoListState } from "../atom/GET/TodoList";
 import { editTodoState } from "../atom/PUT/Todo";
@@ -7,17 +7,16 @@ import { TodoForm } from "../components/TodoForm";
 import { useDeleteAllTodo } from "../service/Delete/useDeleteAllTodo";
 import { useDeleteTodo } from "../service/Delete/useDeleteTodo";
 import { useGetTodo } from "../service/GET/useGetTodo";
-import { useGetTodoList } from "../service/GET/useGetTodoList";
 
 const Todo = () => {
   // Recoil
+  // 状態を取得する側のRecoil:useRecoilValue
   const recoilTodoList = useRecoilValue(todoListState);
-  console.log("受け取ったリスト", recoilTodoList);
-  // 状態を入力する側のRecoil
+  // 状態を入力する側のRecoil:useSetRecoilState
   const setRecoilEditTodo = useSetRecoilState(editTodoState);
 
   // useHook
-  const getTodoList = useGetTodoList();
+
   const deleteTodo = useDeleteTodo();
   const getTodoById = useGetTodo();
   const deleteAllTodo = useDeleteAllTodo();
@@ -44,6 +43,7 @@ const Todo = () => {
         );
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 

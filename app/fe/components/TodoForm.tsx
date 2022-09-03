@@ -24,6 +24,7 @@ export const TodoForm = () => {
   const form = useTodoForm();
 
   // Recoil
+  // 状態を取得する側のRecoil:useRecoilValue
   const recoilEditTodo = useRecoilValue(editTodoState);
   console.log("使う側のRecol", recoilEditTodo);
 
@@ -87,6 +88,19 @@ export const TodoForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const resetButton = () => {
+    form.reset();
+    form.setValues({
+      // ユニーク
+      id: "",
+      productionDate: new Date(),
+      finalDeadline: new Date(),
+      todo: "",
+      isDone: false,
+      priority: 1,
+    });
+  };
+
   return (
     <div className="mt-20">
       <Center>
@@ -135,7 +149,7 @@ export const TodoForm = () => {
               Submit
             </Button>
             {/* formのresetはシンプルなコードなので直書き */}
-            <Button className="bg-black" onClick={() => form.reset()}>
+            <Button className="bg-black" onClick={resetButton}>
               Reset
             </Button>
           </Group>
