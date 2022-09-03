@@ -115,6 +115,7 @@ public class TodoServiceImp implements TodoService {
             // trueを設定
             todoE.setIsDone("true");
         }
+        todoRepository.save(todoE);
         return todoE.getIsDone();
     }
 
