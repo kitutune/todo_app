@@ -58,9 +58,10 @@ const Todo = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  
   // Recoilから受け取ったtodoデータのリストを表示
-  const showTodoList = recoilTodoList.map((todoData) => (
-    <tr key={todoData.id}>
+  const showTodoList = recoilTodoList.map((todoData, index) => (
+    <tr key={index}>
       <td>
         <Checkbox
           checked={todoData.isDone === "true" ? true : false}
@@ -126,6 +127,7 @@ const Todo = () => {
         </thead>
         <tbody>
           {/* recoilTodoListの最初に登録されているtodoのidが空文字でなければtodolistを表示する */}
+
           {!recoilTodoList ? null : showTodoList}
         </tbody>
       </table>
