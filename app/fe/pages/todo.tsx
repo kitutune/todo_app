@@ -1,6 +1,6 @@
 import { Checkbox } from "@mantine/core";
 import dayjs from "dayjs";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { todoListState } from "../atom/GET/TodoList";
 import { editTodoState } from "../atom/PUT/Todo";
@@ -9,6 +9,7 @@ import { useDeleteAllTodo } from "../service/Delete/useDeleteAllTodo";
 import { useDeleteTodo } from "../service/Delete/useDeleteTodo";
 import { useIsDoneTrue } from "../service/Filter/useIsDoneTrue";
 import { useGetTodo } from "../service/GET/useGetTodo";
+import { useGetTodoList } from "../service/GET/useGetTodoList";
 import { useFetchHtmlElement } from "../service/HtmlElement/useFetchHtmlElement";
 import { usePutTodoIsDone } from "../service/Put/usePutTodoIsDone";
 
@@ -18,6 +19,9 @@ const Todo = () => {
   const recoilTodoList = useRecoilValue(todoListState);
   // 状態を入力する側のRecoil:useSetRecoilState
   const setRecoilEditTodo = useSetRecoilState(editTodoState);
+
+  const getTodoList = useGetTodoList();
+  useEffect(() => getTodoList(), [getTodoList]);
 
   // useHook
   const fetchMapId = useFetchHtmlElement();

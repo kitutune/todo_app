@@ -4,7 +4,7 @@ import { useSetRecoilState } from "recoil";
 import { todoListState } from "../../atom/GET/TodoList";
 export const useGetTodoList = () => {
   // DB取得を実行するか否かのフラグ
-  const [isFetchDB, setIsFetchDB] = useState(true);
+  const [isFetchDB, setIsFetchDB] = useState(false);
   // java側でGETメソッドを実装しているURL、リクエスト先
   const BASEURL = "http://localhost:8080/api/all";
   // Recoil
