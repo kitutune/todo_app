@@ -106,13 +106,16 @@ public class TodoServiceImp implements TodoService {
         // DBからidでtodoデータを取得
         TodoEntity todoE = todoRepository.getReferenceById(id);
         // todoEntityのisDone値を現在の状態から反転させる
+        Boolean bool = Boolean.valueOf(todoE.getIsDone());
         // isDoneの中身がtrueの場合
-        if (todoE.getIsDone() == "true") {
+        if (bool) {
             // falseを設定
+            System.out.println("false");
             todoE.setIsDone("false");
             // それ以外の場合(isDoneの中身がfalseの場合)
         } else {
             // trueを設定
+            System.out.println("true");
             todoE.setIsDone("true");
         }
         todoRepository.save(todoE);
