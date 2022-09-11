@@ -4,10 +4,10 @@ import { useGetTodoList } from "../GET/useGetTodoList";
 
 export const usePutTodoIsDone = () => {
   //useHook
-  const isFetchDBTrue = useGetTodoList();
+  // const isFetchDBTrue = useGetTodoList();
   // DBにformから受け取った値を登録（INSERT）するメソッド（PUTなので既に登録されているデータに上書きする）
   // dbEditedには引数が必要
-  const toggleIsDone = useCallback(async (id: string) => {
+  const isDoneDbInsert = useCallback(async (id: string) => {
     // console.log("formTodo", formTodo);
 
     const response = await axios
@@ -17,11 +17,11 @@ export const usePutTodoIsDone = () => {
     if (response.status === 200) {
       console.log("登録成功");
       //  正常にDBにデータを格納したのでDB再取得フラグをtrueに設定
-      isFetchDBTrue();
+      // isFetchDBTrue();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return toggleIsDone;
+  return isDoneDbInsert;
 };
