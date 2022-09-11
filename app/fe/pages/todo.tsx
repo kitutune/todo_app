@@ -1,73 +1,92 @@
 import { Checkbox } from "@mantine/core";
 import dayjs from "dayjs";
-import { useCallback } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { todoListState } from "../atom/GET/TodoList";
-import { editTodoState } from "../atom/PUT/Todo";
+import { memo, useCallback, useEffect, useState } from "react";
 import { TodoForm } from "../components/TodoForm";
 import { useDeleteAllTodo } from "../service/Delete/useDeleteAllTodo";
-import { useDeleteTodo } from "../service/Delete/useDeleteTodo";
-import { useIsDoneTrue } from "../service/Filter/useIsDoneTrue";
-import { useGetTodo } from "../service/GET/useGetTodo";
-import { useFetchHtmlElement } from "../service/HtmlElement/useFetchHtmlElement";
-import { usePutTodoIsDone } from "../service/Put/usePutTodoIsDone";
+import { useGetTodoList } from "../service/GET/useGetTodoList";
+import { TodoFormValue } from "../types/todo";
+import { useDeleteMethod } from "../usecase/todo/useDeleteMethod";
+import { useEditMethod } from "../usecase/todo/useEditMethod";
+import { useIsDoneMethod } from "../usecase/todo/useIsDoneMethod";
 
-const Todo = () => {
-  // Recoil
-  // 状態を取得する側のRecoil:useRecoilValue
-  const recoilTodoList = useRecoilValue(todoListState);
-  // 状態を入力する側のRecoil:useSetRecoilState
-  const setRecoilEditTodo = useSetRecoilState(editTodoState);
+// eslint-disable-next-line react/display-name
+const Todo = memo(() => {
+  const [editForm, setEditForm] = useState<TodoFormValue>({
+    // ユニーク
+    id: "",
+    // todoの作成日（編集時に更新するかはまだ未定）
+    productionDate: new Date(),
+    // todoの最終期限
+    finalDeadline: new Date(),
+    // やること
+    todo: "",
+    // 作業済み
+    isDone: false,
+    // 重要度
+    priority: 1,
+  });
+  const [list, setList] = useState<TodoFormValue[]>([]);
+  console.log("list:", list);
+  console.log("editForm:", editForm);
+
+  const getTodoList = useGetTodoList();
+  const deleteMethod = useDeleteMethod();
+  const isDoneMethod = useIsDoneMethod();
+  const editMethod = useEditMethod();
 
   // useHook
-  const fetchMapId = useFetchHtmlElement();
-  const toggleIsDone = usePutTodoIsDone();
-  const deleteTodo = useDeleteTodo();
-  const getTodoById = useGetTodo();
   const deleteAllTodo = useDeleteAllTodo();
-  const isDoneTrue = useIsDoneTrue();
   // 編集ボタン
   const fetchEditTodoId = useCallback(
     async (e: React.MouseEvent<HTMLElement>) => {
-      // ① mapのidを受け取る
-      const id = fetchMapId(e);
-      // ② ①で取得したidからユーザーデータを取得する awaitがなければ③がユーザーデーターを取得する前に実行され失敗する
-      const response = await getTodoById(id);
-      // ③ ②で取得したデータがちゃんと取れてきているかステータスが200になっているかで確認する(コンソールで見ると中に何が入っているかわかる)
-      setRecoilEditTodo(response.data);
+      setEditForm(await editMethod(e));
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [editMethod]
   );
 
+  const loadTodoList = useCallback(async () => {
+    setList(await getTodoList());
+    console.log("読み込み");
+  }, [getTodoList]);
+
   // 削除ボタン
-  const fetchDeleteTodoId = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    // ① mapのidを受け取る
-    const id = fetchMapId(e);
-    // ② 取得したidを渡す
-    deleteTodo(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const fetchDeleteTodoId = useCallback(
+    async (e: React.MouseEvent<HTMLElement>) => {
+      await deleteMethod(e);
+      loadTodoList();
+    },
+    [deleteMethod, loadTodoList]
+  );
 
   // 済みボタン
-  const fetchIsDoneTodoId = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    // ① mapのidを受け取る
-    const id = fetchMapId(e);
-    // ② 取得したidを渡す
-    toggleIsDone(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const fetchIsDoneTodoId = useCallback(
+    async (e: React.MouseEvent<HTMLElement>) => {
+      await isDoneMethod(e);
+      loadTodoList();
+    },
+    [isDoneMethod, loadTodoList]
+  );
 
-  
+  useEffect(() => {
+    loadTodoList();
+  }, [loadTodoList]);
+
   // Recoilから受け取ったtodoデータのリストを表示
-  const showTodoList = recoilTodoList.map((todoData, index) => (
+  const showTodoList = list.map((todoData, index) => (
     <tr key={index}>
-      <td>
+      <td className="border px-4 py-2 " >
         <Checkbox
+        className="flex-col"
           checked={todoData.isDone === "true" ? true : false}
           data-id={todoData.id}
           onClick={fetchIsDoneTodoId}
         />
+        {/* <input type="checkbox" 
+        
+          checked={todoData.isDone === "true" ? true : false}
+          data-id={todoData.id}
+          onClick={fetchIsDoneTodoId}
+        /> */}
       </td>
       <td className="border px-4 py-2">{todoData.id}</td>
       <td className="border px-4 py-2">
@@ -88,7 +107,7 @@ const Todo = () => {
       </td>
       <td className="border px-4 py-2">{todoData.priority}</td>
       <td
-        className="border px-4 py-2"
+        className="border px-4 py-2 cursor-pointer"
         //  ※カスタムパラメータは"data-"という形式でないと型エラーを吐く
         data-id={todoData.id}
         onClick={fetchEditTodoId}
@@ -96,7 +115,7 @@ const Todo = () => {
         編集
       </td>
       <td
-        className="border px-4 py-2"
+        className="border px-4 py-2 cursor-pointer"
         data-id={todoData.id}
         onClick={fetchDeleteTodoId}
       >
@@ -106,10 +125,9 @@ const Todo = () => {
   ));
 
   return (
-    <div>
-      <TodoForm />
+    <div >
+      <TodoForm editData={editForm} loadTodoList={loadTodoList} />
 
-      <button onClick={isDoneTrue}>trueのみ</button>
       <button onClick={() => deleteAllTodo()}>全てのTodo削除</button>
       <table className="table-auto">
         <thead>
@@ -125,13 +143,9 @@ const Todo = () => {
             <th className="px-4 py-2">削除</th>
           </tr>
         </thead>
-        <tbody>
-          {/* recoilTodoListの最初に登録されているtodoのidが空文字でなければtodolistを表示する */}
-
-          {!recoilTodoList ? null : showTodoList}
-        </tbody>
+        <tbody>{list.length === 0 ? null : showTodoList}</tbody>
       </table>
     </div>
   );
-};
+});
 export default Todo;
