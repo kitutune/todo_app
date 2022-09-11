@@ -1,12 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-// 初期値
-// module.exports = {
-//   content: [],
-//   theme: {
-//     extend: {},
-//   },
-//   plugins: [],
-// }
 module.exports = {
   mode: "jit",
   darkMode: false, // or 'media' or 'class'
@@ -27,8 +19,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  variants: {
-    extend: {},
-  },
   plugins: [],
-};
+}
