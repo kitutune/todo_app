@@ -5,6 +5,7 @@ import { TodoForm } from "../components/TodoForm";
 import { useDeleteAllTodo } from "../service/Delete/useDeleteAllTodo";
 import { useGetTodoList } from "../service/GET/useGetTodoList";
 import { TodoFormValue } from "../types/todo";
+import { SortButtons } from "components/lv4/SortButtons";
 
 // eslint-disable-next-line react/display-name
 const Todo = memo(() => {
@@ -23,12 +24,10 @@ const Todo = memo(() => {
     priority: 1,
   });
   const [list, setList] = useState<TodoFormValue[]>([]);
-  console.log("list:", list);
-  console.log("editForm:", editForm);
-
-  const getTodoList = useGetTodoList();
+  const [result, setResult] = useState<TodoFormValue[]>([]);
 
   // useHook
+  const getTodoList = useGetTodoList();
   const deleteAllTodo = useDeleteAllTodo();
 
   const loadTodoList = useCallback(async () => {
@@ -40,12 +39,15 @@ const Todo = memo(() => {
     loadTodoList();
   }, [loadTodoList]);
 
-  const [result, setResult] = useState<TodoFormValue[]>([]);
+  console.log("list:", list);
+  console.log("editForm:", editForm);
+  console.log("result", result);
 
   return (
     <div>
+      <SortButtons setResult={setResult} list={list} editForm={editForm} />
       <TodoForm editData={editForm} loadTodoList={loadTodoList} />
-      <ArrayFilter setResult={setResult} list={list}/>
+      <ArrayFilter setResult={setResult} list={list} />
       <button onClick={() => deleteAllTodo()}>全てのTodo削除</button>
       <table className="table-auto">
         <thead>

@@ -9,6 +9,7 @@ type propsType = {
 // eslint-disable-next-line react/display-name
 export const ArrayFilter = memo((props: propsType) => {
   const [text, setText] = useState("");
+
   props.setResult(props.list.filter((todo) => todo.todo.match(text)));
 
   return (

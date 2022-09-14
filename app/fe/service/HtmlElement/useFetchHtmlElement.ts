@@ -11,7 +11,6 @@ export const useFetchHtmlElement = () => {
     }
     // 取得したidを返す
     return id;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return fetchMapId;
