@@ -1,11 +1,11 @@
 import { ArrayFilter } from "components/lv3/ArrayFilter";
 import { ShowTodoList } from "components/lv4/ShowTodoList";
 import { memo, useCallback, useEffect, useState } from "react";
-import { TodoForm } from "../components/TodoForm";
+import { TodoForm } from "../components/lv4/TodoForm";
 import { useDeleteAllTodo } from "../service/Delete/useDeleteAllTodo";
 import { useGetTodoList } from "../service/GET/useGetTodoList";
 import { TodoFormValue } from "../types/todo";
-import { SortButtons } from "components/lv4/SortButtons";
+import { SortButtons } from "components/lv3/SortButtons";
 
 // eslint-disable-next-line react/display-name
 const Todo = memo(() => {
@@ -45,14 +45,14 @@ const Todo = memo(() => {
 
   return (
     <div>
-      <SortButtons setResult={setResult} list={list} editForm={editForm} />
       <TodoForm editData={editForm} loadTodoList={loadTodoList} />
       <ArrayFilter setResult={setResult} list={list} />
       <button onClick={() => deleteAllTodo()}>全てのTodo削除</button>
       <table className="table-auto">
         <thead>
           <tr>
-            <th className="px-4 py-2">済み？</th>
+            <th >is？</th>
+            {/* <th className="px-4 py-2">is？</th>
             <th className="px-4 py-2">id</th>
             <th className="px-4 py-2">productionDate</th>
             <th className="px-4 py-2">finalDeadline</th>
@@ -60,7 +60,12 @@ const Todo = memo(() => {
             <th className="px-4 py-2">isDone</th>
             <th className="px-4 py-2">priority</th>
             <th className="px-4 py-2">編集</th>
-            <th className="px-4 py-2">削除</th>
+            <th className="px-4 py-2">削除</th>  */}
+            <SortButtons
+              setResult={setResult}
+              list={list}
+              editForm={editForm}
+            />
           </tr>
         </thead>
         {result.length === 0 ? null : (

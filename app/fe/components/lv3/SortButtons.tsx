@@ -10,7 +10,7 @@ type SortButtonsType = {
 
 export const SortButtons = (props: SortButtonsType) => {
   type property = keyof TodoFormValue;
-  
+
   const handleSort = (button: string) => {
     const key = button as property;
     console.log("click : " + key);
@@ -31,7 +31,7 @@ export const SortButtons = (props: SortButtonsType) => {
 
     // console.log("sortLstsortLstsortLst", sortLst);
 
-    props.setResult(sortLst);
+    props.setResult((...prev) => sortLst);
   };
 
   const KEYS = Object.keys(props.editForm);
@@ -39,12 +39,10 @@ export const SortButtons = (props: SortButtonsType) => {
   return (
     <>
       {KEYS.map((key, index) => (
-        <SortButton
-          // mapで必要なユニークとしてのkeyの設定
-          key={index}
-          button={key}
-          handleSort={handleSort}
-        />
+        // mapで必要なユニークとしてのkeyの設定
+        <th  key={index}>
+          <SortButton button={key} handleSort={handleSort} />
+        </th>
       ))}
     </>
   );

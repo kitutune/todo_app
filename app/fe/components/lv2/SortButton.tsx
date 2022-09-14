@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 
 type SortButtonType = {
-  key: number;
+  // key: number;
   button: string;
   handleSort: (key: string) => void;
 };

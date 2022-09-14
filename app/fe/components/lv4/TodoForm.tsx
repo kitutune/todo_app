@@ -8,9 +8,9 @@ import {
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { memo, useCallback, useEffect, useMemo } from "react";
-import { useTodoForm } from "../service/Form/useTodoForm";
-import { TodoFormValue } from "../types/todo";
-import { useRegistFormSelectSectionDB } from "../usecase/todo/useRegistFormSelectSectionDB";
+import { useTodoForm } from "../../service/Form/useTodoForm";
+import { TodoFormValue } from "../../types/todo";
+import { useRegistFormSelectSectionDB } from "../../usecase/todo/useRegistFormSelectSectionDB";
 
 // eslint-disable-next-line react/display-name
 export const TodoForm = memo(
@@ -66,8 +66,8 @@ export const TodoForm = memo(
     }, [editData]);
 
     return (
-      <div className="mt-20">
-        <Center>
+      <Center>
+        <div className=" m-4">
           <form onSubmit={getFormTodo}>
             <TextInput
               // className="invisible"
@@ -108,7 +108,7 @@ export const TodoForm = memo(
               max={3}
               {...form.getInputProps("priority")}
             />
-            <Group className="bg-blue" position="right" mt="md">
+            <Group className="bg-blue" position="center" mt="md">
               <Button className="bg-black" type="submit">
                 Submit
               </Button>
@@ -118,8 +118,8 @@ export const TodoForm = memo(
               </Button>
             </Group>
           </form>
-        </Center>
-      </div>
+        </div>
+      </Center>
     );
   }
 );
