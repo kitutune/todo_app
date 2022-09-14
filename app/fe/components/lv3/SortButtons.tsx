@@ -31,7 +31,7 @@ export const SortButtons = (props: SortButtonsType) => {
 
     // console.log("sortLstsortLstsortLst", sortLst);
 
-    props.setResult((...prev) => sortLst);
+    props.setResult([...sortLst]);
   };
 
   const KEYS = Object.keys(props.editForm);
@@ -40,7 +40,7 @@ export const SortButtons = (props: SortButtonsType) => {
     <>
       {KEYS.map((key, index) => (
         // mapで必要なユニークとしてのkeyの設定
-        <th  key={index}>
+        <th key={index}>
           <SortButton button={key} handleSort={handleSort} />
         </th>
       ))}
