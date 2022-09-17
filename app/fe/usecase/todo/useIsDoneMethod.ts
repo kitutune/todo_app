@@ -3,6 +3,8 @@ import { useFetchHtmlElement } from "../../service/HtmlElement/useFetchHtmlEleme
 import { usePutTodoIsDone } from "../../service/Put/usePutTodoIsDone";
 
 export const useIsDoneMethod = () => {
+  // console.log("useIsDoneMethod");
+  
   const fetchMapId = useFetchHtmlElement();
   const isDoneDbInsert = usePutTodoIsDone();
 

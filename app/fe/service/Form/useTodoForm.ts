@@ -2,6 +2,8 @@ import { useForm } from "@mantine/form";
 import { useFormatDate } from "../Convert/useFormatDate";
 
 export const useTodoForm = () => {
+  // console.log("useTodoForm");
+
   // useHook
   const formatDateTypeToDate = useFormatDate();
   const form = useForm({

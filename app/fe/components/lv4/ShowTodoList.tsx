@@ -14,6 +14,8 @@ type ShowTodoListType = {
 
 // eslint-disable-next-line react/display-name
 export const ShowTodoList = memo((props: ShowTodoListType) => {
+  // console.log("ShowTodoList");
+
   // useHook
   const deleteTodoMethod = useDeleteTodoMethod();
   const isDoneMethod = useIsDoneMethod();
@@ -44,7 +46,6 @@ export const ShowTodoList = memo((props: ShowTodoListType) => {
     },
     [isDoneMethod, props]
   );
-  console.log("props.listprops.listprops.listprops.listprops.list", props.list);
 
   return (
     <tbody>
