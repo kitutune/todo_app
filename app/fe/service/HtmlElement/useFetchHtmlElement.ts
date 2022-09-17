@@ -1,7 +1,8 @@
 import { useCallback } from "react";
 
 export const useFetchHtmlElement = () => {
-  // elementのidを渡すかエラーをスロー
+  // console.log("useFetchHtmlElement");
+
   const fetchMapId = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const id = e.currentTarget.getAttribute("data-id");
     // nullの可能性を排除

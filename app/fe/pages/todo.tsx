@@ -9,6 +9,8 @@ import { SortButtons } from "components/lv3/SortButtons";
 
 // eslint-disable-next-line react/display-name
 const Todo = memo(() => {
+  // console.log("Todo");
+
   const [editForm, setEditForm] = useState<TodoFormValue>({
     // ユニーク
     id: "",
@@ -23,25 +25,24 @@ const Todo = memo(() => {
     // 重要度
     priority: 1,
   });
+  // BEから取得したTodoListを保管するState
   const [list, setList] = useState<TodoFormValue[]>([]);
+  // FEでフィルターやソートを行った後のTodoListを保管するState
   const [result, setResult] = useState<TodoFormValue[]>([]);
 
   // useHook
+  // BEからTodoListを取得するメソッド
   const getTodoList = useGetTodoList();
+  // DBから全てのデータを削除するメソッド
   const deleteAllTodo = useDeleteAllTodo();
 
   const loadTodoList = useCallback(async () => {
     setList(await getTodoList());
-    console.log("読み込み");
   }, [getTodoList]);
 
   useEffect(() => {
     loadTodoList();
   }, [loadTodoList]);
-
-  console.log("list:", list);
-  console.log("editForm:", editForm);
-  console.log("result", result);
 
   return (
     <div>
@@ -51,16 +52,7 @@ const Todo = memo(() => {
       <table className="table-auto">
         <thead>
           <tr>
-            <th >is？</th>
-            {/* <th className="px-4 py-2">is？</th>
-            <th className="px-4 py-2">id</th>
-            <th className="px-4 py-2">productionDate</th>
-            <th className="px-4 py-2">finalDeadline</th>
-            <th className="px-4 py-2">todo</th>
-            <th className="px-4 py-2">isDone</th>
-            <th className="px-4 py-2">priority</th>
-            <th className="px-4 py-2">編集</th>
-            <th className="px-4 py-2">削除</th>  */}
+            <th>is？</th>
             <SortButtons
               setResult={setResult}
               list={list}

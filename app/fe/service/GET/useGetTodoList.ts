@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { useCallback } from "react";
 export const useGetTodoList = () => {
-  // java側でGETメソッドを実装しているURL、リクエスト先
+  // console.log("useGetTodoList");
   const BASEURL = "http://localhost:8080/api/all";
   // Todoテーブルから取得
   const getTodoList = useCallback(async () => {

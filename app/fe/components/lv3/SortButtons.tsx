@@ -1,5 +1,5 @@
 import { SortButton } from "components/lv2/SortButton";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, memo, SetStateAction, useCallback } from "react";
 import { TodoFormValue } from "types/todo";
 
 type SortButtonsType = {
@@ -8,31 +8,40 @@ type SortButtonsType = {
   editForm: TodoFormValue;
 };
 
-export const SortButtons = (props: SortButtonsType) => {
-  type property = keyof TodoFormValue;
+/**
+ * type ReadonlyProperty = "id" | "productionDate" | "finalDeadline" | "todo" | "isDone" | "priority"
+ */
 
-  const handleSort = (button: string) => {
-    const key = button as property;
-    console.log("click : " + key);
+// eslint-disable-next-line react/display-name
+export const SortButtons = memo((props: SortButtonsType) => {
+  // console.log("SortButtons");
+  type Property = keyof TodoFormValue;
+  type ReadonlyProperty = Readonly<Property>;
 
-    const sortLst = props.list.sort(function compareNumbers(a, b) {
-      console.log("a[key]a[key]", a[key]);
-      a = a[key];
-      b = b[key];
-      if (a === b) {
-        return 0;
-      }
-      if (a > b) {
-        return 1;
-      }
-      // a < b
-      return -1;
-    });
+  const handleSort = useCallback(
+    (buttonName: string) => {
+      console.log("handleSort");
 
-    // console.log("sortLstsortLstsortLst", sortLst);
+      const key = buttonName as ReadonlyProperty;
+      // console.log("click : " + key);
 
-    props.setResult([...sortLst]);
-  };
+      const sortLst = props.list.sort(function compareNumbers(a, b) {
+        a = a[key];
+        b = b[key];
+        if (a === b) {
+          return 0;
+        }
+        if (a > b) {
+          return 1;
+        }
+        // a < b
+        return -1;
+      });
+
+      props.setResult([...sortLst]);
+    },
+    [props]
+  );
 
   const KEYS = Object.keys(props.editForm);
 
@@ -41,9 +50,9 @@ export const SortButtons = (props: SortButtonsType) => {
       {KEYS.map((key, index) => (
         // mapで必要なユニークとしてのkeyの設定
         <th key={index}>
-          <SortButton button={key} handleSort={handleSort} />
+          <SortButton buttonName={key} handleSort={handleSort} />
         </th>
       ))}
     </>
   );
-};
+});
