@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useCallback } from "react";
 import { useErrorHandle } from "service/ErrorHandle/useErrorHandle";
-import { TodoFormValue } from "../../types/todo";
+import { TodoFormValueType } from "../../types/todo";
 
 export const usePutTodo = () => {
   // console.log("usePutTodo");
   const axiosError = useErrorHandle();
   const dbEdited = useCallback(
-    async (formTodo: TodoFormValue) => {
+    async (formTodo: TodoFormValueType) => {
       try {
         await axios.put(
           `http://localhost:8080/api/edit/${formTodo.id}`,

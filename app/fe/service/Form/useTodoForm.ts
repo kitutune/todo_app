@@ -1,4 +1,5 @@
 import { useForm } from "@mantine/form";
+import { TodoFormValue } from "pages/todo";
 import { useFormatDate } from "../Convert/useFormatDate";
 
 export const useTodoForm = () => {
@@ -7,21 +8,7 @@ export const useTodoForm = () => {
   // useHook
   const formatDateTypeToDate = useFormatDate();
   const form = useForm({
-    initialValues: {
-      // ユニーク
-      id: "",
-      // todoの作成日（編集時に更新するかはまだ未定）
-      productionDate: new Date(),
-      // todoの最終期限
-      finalDeadline: new Date(),
-      // やること
-      todo: "",
-      // 作業済み
-      isDone: false,
-      // 重要度
-      priority: 1,
-    },
-
+    initialValues: TodoFormValue,
     validate: {
       // productionDate: (productionDate_value) =>
       //   productionDate_value.length < 1 ? "名前は必須入力です" : null,

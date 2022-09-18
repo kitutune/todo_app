@@ -1,15 +1,15 @@
 import { Checkbox } from "@mantine/core";
 import dayjs from "dayjs";
 import React, { memo, useCallback } from "react";
-import { TodoFormValue } from "types/todo";
+import { TodoFormValueType } from "types/todo";
 import { useDeleteTodoMethod } from "usecase/todo/useDeleteTodoMethod";
 import { useEditTodoMethod } from "usecase/todo/useEditTodoMethod";
 import { useIsDoneMethod } from "usecase/todo/useIsDoneMethod";
 
 type ShowTodoListType = {
-  list: TodoFormValue[];
+  list: TodoFormValueType[];
   loadTodoList: () => Promise<void>;
-  setEditForm: (arg0: TodoFormValue) => void;
+  setEditForm: (arg0: TodoFormValueType) => void;
 };
 
 // eslint-disable-next-line react/display-name
@@ -49,7 +49,7 @@ export const ShowTodoList = memo((props: ShowTodoListType) => {
 
   return (
     <tbody>
-      {props.list.map((todoData: TodoFormValue, index: React.Key) => (
+      {props.list.map((todoData: TodoFormValueType, index: React.Key) => (
         <tr key={index}>
           <td className="border px-4 py-2 ">
             <Checkbox
@@ -73,11 +73,7 @@ export const ShowTodoList = memo((props: ShowTodoListType) => {
               .format("YYYY/MM/DD(dd)")}
           </td>
           <td className="border px-4 py-2">{todoData.todo}</td>
-          <td
-            className="border px-4 py-2"
-          >
-            {todoData.isDone}
-          </td>
+          <td className="border px-4 py-2">{todoData.isDone}</td>
           <td className="border px-4 py-2">{todoData.priority}</td>
           <td
             className="border px-4 py-2 cursor-pointer"

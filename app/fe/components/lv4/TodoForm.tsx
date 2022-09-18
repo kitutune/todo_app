@@ -9,11 +9,11 @@ import {
 import { DatePicker } from "@mantine/dates";
 import { memo, useCallback, useEffect, useMemo } from "react";
 import { useTodoForm } from "../../service/Form/useTodoForm";
-import { TodoFormValue } from "../../types/todo";
+import { TodoFormValueType } from "../../types/todo";
 import { useRegistFormSelectSectionDB } from "../../usecase/todo/useRegistFormSelectSectionDB";
 
 type TodoFormType = {
-  editData: TodoFormValue;
+  editData: TodoFormValueType;
   loadTodoList: () => Promise<void>;
 };
 
@@ -26,14 +26,14 @@ export const TodoForm = memo((props: TodoFormType) => {
   const form = useTodoForm();
 
   // 登録と編集
-  const getFormTodo = form.onSubmit(async (values: TodoFormValue) => {
+  const getFormTodo = form.onSubmit(async (values: TodoFormValueType) => {
     await registFormSelectSectionDB(values);
     props.loadTodoList();
     form.reset();
   });
 
   const editTodo = useCallback(
-    (editData: TodoFormValue) => {
+    (editData: TodoFormValueType) => {
       if (editData.id === "") {
         console.log("idが空なので編集データではありません");
         return;
@@ -52,22 +52,6 @@ export const TodoForm = memo((props: TodoFormType) => {
 
   useEffect(() => {
     editTodo(editData);
-    // return () => {
-    //   editTodo({
-    //     // ユニーク
-    //     id: "",
-    //     // todoの作成日（編集時に更新するかはまだ未定）
-    //     productionDate: new Date(),
-    //     // todoの最終期限
-    //     finalDeadline: new Date(),
-    //     // やること
-    //     todo: "",
-    //     // 作業済み
-    //     isDone: false,
-    //     // 重要度
-    //     priority: 1,
-    //   });
-    // };
   }, [editData]);
 
   return (

@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useConvert } from "../../service/Convert/useConvert";
 import { usePostTodo } from "../../service/Post/usePostTodo";
 import { usePutTodo } from "../../service/Put/usePutTodo";
-import { TodoFormValue } from "../../types/todo";
+import { TodoFormValueType } from "../../types/todo";
 
 export const useRegistFormSelectSectionDB = () => {
   // console.log("useRegistFormSelectSectionDB");
@@ -11,7 +11,7 @@ export const useRegistFormSelectSectionDB = () => {
   const convertFormToEntity = useConvert();
   // 引数の内容によって登録・編集・リターンを選択する
   const registFormSelectSectionDB = useCallback(
-    async (formTodo: TodoFormValue) => {
+    async (formTodo: TodoFormValueType) => {
       // ①必須項目が空文字なら処理せず返す
       if (formTodo.todo === "") {
         return console.log("空の値は登録できません");
