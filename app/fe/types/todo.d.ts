@@ -1,5 +1,5 @@
-export type TodoFormValue = {
-  id: string|int;
+export type TodoFormValueType = {
+  id: string | int;
   // todoの作成日（編集時に更新するかはまだ未定）
   productionDate: Date;
   // todoの最終期限

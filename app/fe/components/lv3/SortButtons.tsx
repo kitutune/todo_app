@@ -1,11 +1,11 @@
 import { SortButton } from "components/lv2/SortButton";
 import React, { Dispatch, memo, SetStateAction, useCallback } from "react";
-import { TodoFormValue } from "types/todo";
+import { TodoFormValueType } from "types/todo";
 
 type SortButtonsType = {
-  setResult: Dispatch<SetStateAction<TodoFormValue[]>>;
-  list: TodoFormValue[];
-  editForm: TodoFormValue;
+  setResult: Dispatch<SetStateAction<TodoFormValueType[]>>;
+  list: TodoFormValueType[];
+  editForm: TodoFormValueType;
 };
 
 /**
@@ -15,7 +15,7 @@ type SortButtonsType = {
 // eslint-disable-next-line react/display-name
 export const SortButtons = memo((props: SortButtonsType) => {
   // console.log("SortButtons");
-  type Property = keyof TodoFormValue;
+  type Property = keyof TodoFormValueType;
   type ReadonlyProperty = Readonly<Property>;
 
   const handleSort = useCallback(

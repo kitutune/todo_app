@@ -1,9 +1,15 @@
-import React, { Dispatch, memo, SetStateAction, useEffect, useState } from "react";
-import { TodoFormValue } from "types/todo";
+import React, {
+  Dispatch,
+  memo,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
+import { TodoFormValueType } from "types/todo";
 
 type propsType = {
-  list: TodoFormValue[];
-  setResult: Dispatch<SetStateAction<TodoFormValue[]>>;
+  list: TodoFormValueType[];
+  setResult: Dispatch<SetStateAction<TodoFormValueType[]>>;
 };
 
 // eslint-disable-next-line react/display-name
@@ -14,10 +20,9 @@ export const ArrayFilter = memo((props: propsType) => {
 
   // props.setResult(props.list.filter((todo) => todo.todo.match(text)));
 
-useEffect(() => {
-  props.setResult(props.list.filter((todo) => todo.todo.match(text)));
-}, [props, text])
-
+  useEffect(() => {
+    props.setResult(props.list.filter((todo) => todo.todo.match(text)));
+  }, [props, text]);
 
   return (
     <>

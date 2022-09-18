@@ -1,10 +1,10 @@
-import { TodoFormValue } from "../../types/todo";
+import { TodoFormValueType } from "../../types/todo";
 
 // form形式のtodoをentity形式にコンバート
 export const useConvert = () => {
   // console.log("useConvert");
 
-  const convertFormToEntity = (formTodo: TodoFormValue) => {
+  const convertFormToEntity = (formTodo: TodoFormValueType) => {
     return {
       id: Number(formTodo.id),
       productionDate: formTodo.productionDate,
