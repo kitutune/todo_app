@@ -15,6 +15,7 @@
     "@mantine/form": "^5.0.3",
     "@mantine/hooks": "^5.0.3",
     "@mantine/next": "^5.0.3",
+    "@mantine/notifications": "^5.3.3",
     "axios": "^0.27.2",
     "dayjs": "^1.11.5",
     "eslint-plugin-react-hooks": "^4.6.0",

@@ -1,16 +1,20 @@
 import axios from "axios";
 import { useCallback } from "react";
+import { useErrorHandle } from "service/ErrorHandle/useErrorHandle";
 
 export const useDeleteTodo = () => {
   // console.log("useDeleteTodo");
-  const deleteTodo = useCallback(async (id: string) => {
-    const response = await axios.delete(
-      `http://localhost:8080/api/delete/${id}`
-    );
-    if (response.status === 200) {
-      console.log("登録成功");
-    }
-  }, []);
+  const axiosError = useErrorHandle();
+  const deleteTodo = useCallback(
+    async (id: string) => {
+      try {
+        await axios.delete(`http://localhost:8080/api/delete/${id}`);
+      } catch (error: unknown) {
+        axiosError(error);
+      }
+    },
+    [axiosError]
+  );
 
   return deleteTodo;
 };

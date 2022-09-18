@@ -40,6 +40,11 @@ const Todo = memo(() => {
     setList(await getTodoList());
   }, [getTodoList]);
 
+  const deleteAll = useCallback(async () => {
+    await deleteAllTodo();
+    loadTodoList();
+  }, [deleteAllTodo, loadTodoList]);
+
   useEffect(() => {
     loadTodoList();
   }, [loadTodoList]);
@@ -48,7 +53,7 @@ const Todo = memo(() => {
     <div>
       <TodoForm editData={editForm} loadTodoList={loadTodoList} />
       <ArrayFilter setResult={setResult} list={list} />
-      <button onClick={() => deleteAllTodo()}>全てのTodo削除</button>
+      <button onClick={deleteAll}>全てのTodo削除</button>
       <table className="table-auto">
         <thead>
           <tr>
