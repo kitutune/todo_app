@@ -17,6 +17,10 @@ export const usePostTodo = () => {
       } catch (error: unknown) {
         axiosError(error);
       }
+
+      // if (response.status === 200) {
+      //   console.log("登録成功");
+      // }
     },
     [axiosError]
   );

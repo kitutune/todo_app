@@ -54,7 +54,7 @@ export const ShowTodoList = memo((props: ShowTodoListType) => {
           <td className="border px-4 py-2 ">
             <Checkbox
               className="flex-col"
-              checked={todoData.isDone === "true" ? true : false}
+              defaultChecked={todoData.isDone === "true" ? true : false}
               data-id={todoData.id}
               onClick={fetchIsDoneTodoId}
             />
@@ -75,8 +75,6 @@ export const ShowTodoList = memo((props: ShowTodoListType) => {
           <td className="border px-4 py-2">{todoData.todo}</td>
           <td
             className="border px-4 py-2"
-            // ※カスタムパラメータは"data-"という形式でないと型エラーを吐く
-            data-isDone={todoData.isDone}
           >
             {todoData.isDone}
           </td>
