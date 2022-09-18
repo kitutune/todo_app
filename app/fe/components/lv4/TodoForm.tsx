@@ -25,6 +25,7 @@ export const TodoForm = memo((props: TodoFormType) => {
   const registFormSelectSectionDB = useRegistFormSelectSectionDB();
   const form = useTodoForm();
 
+  // 登録と編集
   const getFormTodo = form.onSubmit(async (values: TodoFormValue) => {
     await registFormSelectSectionDB(values);
     props.loadTodoList();
@@ -51,22 +52,22 @@ export const TodoForm = memo((props: TodoFormType) => {
 
   useEffect(() => {
     editTodo(editData);
-    return () => {
-      editTodo({
-        // ユニーク
-        id: "",
-        // todoの作成日（編集時に更新するかはまだ未定）
-        productionDate: new Date(),
-        // todoの最終期限
-        finalDeadline: new Date(),
-        // やること
-        todo: "",
-        // 作業済み
-        isDone: false,
-        // 重要度
-        priority: 1,
-      });
-    };
+    // return () => {
+    //   editTodo({
+    //     // ユニーク
+    //     id: "",
+    //     // todoの作成日（編集時に更新するかはまだ未定）
+    //     productionDate: new Date(),
+    //     // todoの最終期限
+    //     finalDeadline: new Date(),
+    //     // やること
+    //     todo: "",
+    //     // 作業済み
+    //     isDone: false,
+    //     // 重要度
+    //     priority: 1,
+    //   });
+    // };
   }, [editData]);
 
   return (

@@ -1,4 +1,4 @@
-import React, { Dispatch, memo, SetStateAction, useState } from "react";
+import React, { Dispatch, memo, SetStateAction, useEffect, useState } from "react";
 import { TodoFormValue } from "types/todo";
 
 type propsType = {
@@ -12,7 +12,12 @@ export const ArrayFilter = memo((props: propsType) => {
 
   const [text, setText] = useState("");
 
+  // props.setResult(props.list.filter((todo) => todo.todo.match(text)));
+
+useEffect(() => {
   props.setResult(props.list.filter((todo) => todo.todo.match(text)));
+}, [props, text])
+
 
   return (
     <>
