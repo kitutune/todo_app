@@ -5,7 +5,7 @@ import { TodoFormValueType } from "types/todo";
 type SortButtonsType = {
   setResult: Dispatch<SetStateAction<TodoFormValueType[]>>;
   list: TodoFormValueType[];
-  editForm: TodoFormValueType;
+  editFormData: TodoFormValueType;
 };
 
 /**
@@ -18,9 +18,9 @@ export const SortButtons = memo((props: SortButtonsType) => {
   type Property = keyof TodoFormValueType;
   type ReadonlyProperty = Readonly<Property>;
 
-  const handleSort = useCallback(
+  const handleClickSortButton = useCallback(
     (buttonName: string) => {
-      console.log("handleSort");
+      console.log("handleClickSortButton");
 
       const key = buttonName as ReadonlyProperty;
       // console.log("click : " + key);
@@ -43,14 +43,17 @@ export const SortButtons = memo((props: SortButtonsType) => {
     [props]
   );
 
-  const KEYS = Object.keys(props.editForm);
+  const TodoFormValueOfKey = Object.keys(props.editFormData);
 
   return (
     <>
-      {KEYS.map((key, index) => (
+      {TodoFormValueOfKey.map((key, index) => (
         // mapで必要なユニークとしてのkeyの設定
         <th key={index}>
-          <SortButton buttonName={key} handleSort={handleSort} />
+          <SortButton
+            buttonName={key}
+            handleClickSortButton={handleClickSortButton}
+          />
         </th>
       ))}
     </>
