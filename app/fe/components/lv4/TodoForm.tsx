@@ -33,8 +33,7 @@ export const TodoForm = memo((props: TodoFormType) => {
       form.reset();
     }
   );
-
-  const editTodo = useCallback(
+  const formSetTodoEditData = useCallback(
     (editData: TodoFormValueType) => {
       if (editData.id === "") {
         console.log("idが空なので編集データではありません");
@@ -53,8 +52,8 @@ export const TodoForm = memo((props: TodoFormType) => {
   );
 
   useEffect(() => {
-    editTodo(editData);
-  }, [editData]);
+    formSetTodoEditData(editData);
+  }, [editData, formSetTodoEditData]);
 
   return (
     <Center>
