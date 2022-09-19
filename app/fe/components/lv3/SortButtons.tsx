@@ -5,7 +5,7 @@ import { TodoFormValueType } from "types/todo";
 type SortButtonsType = {
   setResult: Dispatch<SetStateAction<TodoFormValueType[]>>;
   list: TodoFormValueType[];
-  editForm: TodoFormValueType;
+  editFormData: TodoFormValueType;
 };
 
 /**
@@ -42,8 +42,8 @@ export const SortButtons = memo((props: SortButtonsType) => {
     },
     [props]
   );
-  
-  const TodoFormValueOfKey = Object.keys(props.editForm);
+
+  const TodoFormValueOfKey = Object.keys(props.editFormData);
 
   return (
     <>

@@ -7,58 +7,33 @@ import {
   TextInput,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
-import { memo, useCallback, useEffect, useMemo } from "react";
-import { useTodoForm } from "../../service/Form/useTodoForm";
+import { UseFormReturnType } from "@mantine/form";
+import { FormEvent, memo } from "react";
 import { TodoFormValueType } from "../../types/todo";
-import { useRegistFormSelectSectionDB } from "../../usecase/todo/useRegistFormSelectSectionDB";
 
 type TodoFormType = {
   editData: TodoFormValueType;
   loadTodoList: () => Promise<void>;
+  form: UseFormReturnType<{
+    id: string;
+    productionDate: Date;
+    finalDeadline: Date;
+    todo: string;
+    isDone: boolean;
+    priority: number;
+  }>;
+  handleClickSendDbButton: (event: FormEvent<HTMLFormElement>) => void;
 };
 
 // eslint-disable-next-line react/display-name
 export const TodoForm = memo((props: TodoFormType) => {
+  const form = props.form;
   console.log("TodoForm");
-  const editData = useMemo(() => props.editData, [props.editData]);
-  // useHook
-  const registFormSelectSectionDB = useRegistFormSelectSectionDB();
-  const form = useTodoForm();
-
-  // 登録と編集
-  const handleClickSendDbButton = form.onSubmit(
-    async (values: TodoFormValueType) => {
-      await registFormSelectSectionDB(values);
-      props.loadTodoList();
-      form.reset();
-    }
-  );
-  const formSetTodoEditData = useCallback(
-    (editData: TodoFormValueType) => {
-      if (editData.id === "") {
-        console.log("idが空なので編集データではありません");
-        return;
-      }
-      form.setValues({
-        id: editData.id,
-        productionDate: editData.productionDate,
-        finalDeadline: editData.finalDeadline,
-        todo: editData.todo,
-        isDone: editData.isDone == "true" ? true : false,
-        priority: Number(editData.priority),
-      });
-    },
-    [form]
-  );
-
-  useEffect(() => {
-    formSetTodoEditData(editData);
-  }, [editData, formSetTodoEditData]);
 
   return (
     <Center>
       <div className=" m-4">
-        <form onSubmit={handleClickSendDbButton}>
+        <form onSubmit={props.handleClickSendDbButton}>
           <TextInput
             // className="invisible"
             disabled
