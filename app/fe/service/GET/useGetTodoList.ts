@@ -13,17 +13,6 @@ export const useGetTodoList = () => {
     } catch (error: unknown) {
       axiosError(error);
     }
-
-    // const response: AxiosResponse = await axios.get(BASEURL).catch((error) => {
-    //   // レスポンスありのエラーハンドリング（実際には必要に応じた例外処理を実装する）
-    //   console.log(
-    //     `Error! code: ${error.response.status}, message: ${error.message}`
-    //   );
-    //   // 回収していないがAxiosResponseの型用に配置
-    //   return error.response;
-    // });
-    // console.log(response.data);
-    // 回収していないがAxiosResponseの型用に配置
   }, [axiosError]);
   return getTodoList;
 };
