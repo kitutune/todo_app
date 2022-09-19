@@ -10,7 +10,7 @@ export const usePostTodo = () => {
   const dbRegistered = useCallback(
     async (formTodo: TodoFormValueType) => {
       try {
-        const response = await axios.post(BASEURL, formTodo, {
+        await axios.post(BASEURL, formTodo, {
           // デフォルト値がapplication/jsonなので記述必要なし
           // headers: { "Content-Type": "application/json" },
         });

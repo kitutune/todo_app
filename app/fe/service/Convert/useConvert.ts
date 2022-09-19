@@ -1,10 +1,11 @@
+import { useCallback } from "react";
 import { TodoFormValueType } from "../../types/todo";
 
 // form形式のtodoをentity形式にコンバート
 export const useConvert = () => {
   // console.log("useConvert");
 
-  const convertFormToEntity = (formTodo: TodoFormValueType) => {
+  const convertFormToEntity =useCallback( (formTodo: TodoFormValueType) => {
     return {
       id: Number(formTodo.id),
       productionDate: formTodo.productionDate,
@@ -13,7 +14,7 @@ export const useConvert = () => {
       isDone: String(formTodo.isDone),
       priority: String(formTodo.priority),
     };
-  };
+  },[])
 
   return convertFormToEntity;
 };
