@@ -1,10 +1,10 @@
-import React from "react";
 import { useFetchHtmlElement } from "../../service/HtmlElement/useFetchHtmlElement";
 import { usePutTodoIsDone } from "../../service/Put/usePutTodoIsDone";
+import React from "react";
 
 export const useIsDoneMethod = () => {
   // console.log("useIsDoneMethod");
-  
+
   const fetchMapId = useFetchHtmlElement();
   const isDoneDbInsert = usePutTodoIsDone();
 

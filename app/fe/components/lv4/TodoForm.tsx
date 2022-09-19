@@ -1,3 +1,4 @@
+import { TodoFormValueType } from "../../types/todo";
 import {
   Button,
   Center,
@@ -9,7 +10,6 @@ import {
 import { DatePicker } from "@mantine/dates";
 import { UseFormReturnType } from "@mantine/form";
 import { FormEvent, memo } from "react";
-import { TodoFormValueType } from "../../types/todo";
 
 type TodoFormType = {
   editData: TodoFormValueType;

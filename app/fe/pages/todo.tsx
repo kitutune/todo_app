@@ -1,11 +1,11 @@
-import { ArrayFilter } from "components/lv3/ArrayFilter";
-import { ShowTodoList } from "components/lv4/ShowTodoList";
-import { memo, useCallback, useEffect, useState } from "react";
 import { TodoForm } from "../components/lv4/TodoForm";
 import { useDeleteAllTodo } from "../service/Delete/useDeleteAllTodo";
 import { useGetTodoList } from "../service/GET/useGetTodoList";
 import { TodoFormValueType } from "../types/todo";
+import { ArrayFilter } from "components/lv3/ArrayFilter";
 import { SortButtons } from "components/lv3/SortButtons";
+import { ShowTodoList } from "components/lv4/ShowTodoList";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useTodoForm } from "service/Form/useTodoForm";
 import { useDeleteTodoMethod } from "usecase/todo/useDeleteTodoMethod";
 import { useEditTodoMethod } from "usecase/todo/useEditTodoMethod";
@@ -39,10 +39,12 @@ const Todo = memo(() => {
   const [result, setResult] = useState<TodoFormValueType[]>([]);
   const form = useTodoForm();
   // useHook
-  // BEからTodoListを取得するメソッド
   const getTodoList = useGetTodoList();
-  // DBから全てのデータを削除するメソッド
   const deleteAllTodo = useDeleteAllTodo();
+  const deleteTodoMethod = useDeleteTodoMethod();
+  const isDoneMethod = useIsDoneMethod();
+  const editTodoMethod = useEditTodoMethod();
+  const registFormSelectSectionDB = useRegistFormSelectSectionDB();
 
   const loadTodoList = useCallback(async () => {
     setList(await getTodoList());
@@ -52,10 +54,6 @@ const Todo = memo(() => {
     await deleteAllTodo();
     loadTodoList();
   }, [deleteAllTodo, loadTodoList]);
-
-  const deleteTodoMethod = useDeleteTodoMethod();
-  const isDoneMethod = useIsDoneMethod();
-  const editTodoMethod = useEditTodoMethod();
 
   const formSetTodoEditData = useCallback(
     (editData: TodoFormValueType) => {
@@ -101,8 +99,6 @@ const Todo = memo(() => {
     [isDoneMethod, loadTodoList]
   );
 
-  const registFormSelectSectionDB = useRegistFormSelectSectionDB();
-
   // 登録と編集
   const handleClickSendDbButton = form.onSubmit(
     useCallback(
@@ -118,6 +114,7 @@ const Todo = memo(() => {
   useEffect(() => {
     loadTodoList();
   }, [loadTodoList]);
+
   return (
     <div>
       <TodoForm

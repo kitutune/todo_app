@@ -13,7 +13,6 @@ export const usePutTodoIsDone = () => {
       } catch (error: unknown) {
         axiosError(error);
       }
-
     },
     [axiosError]
   );

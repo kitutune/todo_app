@@ -1,5 +1,6 @@
 import { Center } from "@mantine/core";
 import { memo, ReactNode } from "react";
+
 type props = {
   children: ReactNode;
 };
