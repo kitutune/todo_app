@@ -2,7 +2,7 @@ import React, { memo } from "react";
 
 type SortButtonType = {
   buttonName: string;
-  handleSort: (buttonName: string) => void;
+  handleClickSortButton: (buttonName: string) => void;
 };
 
 // eslint-disable-next-line react/display-name
@@ -10,7 +10,7 @@ export const SortButton = memo((props: SortButtonType) => {
   // console.log("SortButton");
 
   return (
-    <button onClick={() => props.handleSort(props.buttonName)}>
+    <button onClick={() => props.handleClickSortButton(props.buttonName)}>
       {props.buttonName.toUpperCase()}
     </button>
   );

@@ -22,7 +22,7 @@ export const ShowTodoList = memo((props: ShowTodoListType) => {
   const editTodoMethod = useEditTodoMethod();
 
   // 編集ボタン
-  const fetchEditTodoId = useCallback(
+  const handleClickEditButton = useCallback(
     async (e: React.MouseEvent<HTMLElement>) => {
       props.setEditForm(await editTodoMethod(e));
     },
@@ -30,7 +30,7 @@ export const ShowTodoList = memo((props: ShowTodoListType) => {
   );
 
   // 削除ボタン
-  const fetchDeleteTodoId = useCallback(
+  const handleClickDeleteButton = useCallback(
     async (e: React.MouseEvent<HTMLElement>) => {
       await deleteTodoMethod(e);
       props.loadTodoList();
@@ -39,7 +39,7 @@ export const ShowTodoList = memo((props: ShowTodoListType) => {
   );
 
   // 済みボタン
-  const fetchIsDoneTodoId = useCallback(
+  const handleClickIsDoneCheckBox = useCallback(
     async (e: React.MouseEvent<HTMLElement>) => {
       await isDoneMethod(e);
       props.loadTodoList();
@@ -56,7 +56,7 @@ export const ShowTodoList = memo((props: ShowTodoListType) => {
               className="flex-col"
               defaultChecked={todoData.isDone === "true" ? true : false}
               data-id={todoData.id}
-              onClick={fetchIsDoneTodoId}
+              onClick={handleClickIsDoneCheckBox}
             />
           </td>
           <td className="border px-4 py-2">{todoData.id}</td>
@@ -79,14 +79,14 @@ export const ShowTodoList = memo((props: ShowTodoListType) => {
             className="border px-4 py-2 cursor-pointer"
             //  ※カスタムパラメータは"data-"という形式でないと型エラーを吐く
             data-id={todoData.id}
-            onClick={fetchEditTodoId}
+            onClick={handleClickEditButton}
           >
             編集
           </td>
           <td
             className="border px-4 py-2 cursor-pointer"
             data-id={todoData.id}
-            onClick={fetchDeleteTodoId}
+            onClick={handleClickDeleteButton}
           >
             削除
           </td>

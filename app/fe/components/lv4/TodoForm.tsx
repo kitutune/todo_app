@@ -26,11 +26,13 @@ export const TodoForm = memo((props: TodoFormType) => {
   const form = useTodoForm();
 
   // 登録と編集
-  const getFormTodo = form.onSubmit(async (values: TodoFormValueType) => {
-    await registFormSelectSectionDB(values);
-    props.loadTodoList();
-    form.reset();
-  });
+  const handleClickSendDbButton = form.onSubmit(
+    async (values: TodoFormValueType) => {
+      await registFormSelectSectionDB(values);
+      props.loadTodoList();
+      form.reset();
+    }
+  );
 
   const editTodo = useCallback(
     (editData: TodoFormValueType) => {
@@ -57,7 +59,7 @@ export const TodoForm = memo((props: TodoFormType) => {
   return (
     <Center>
       <div className=" m-4">
-        <form onSubmit={getFormTodo}>
+        <form onSubmit={handleClickSendDbButton}>
           <TextInput
             // className="invisible"
             disabled
