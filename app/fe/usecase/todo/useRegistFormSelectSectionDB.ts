@@ -1,12 +1,12 @@
-import { useConvert } from "../../service/Convert/useConvert";
 import { usePostTodo } from "../../service/Post/usePostTodo";
-import { usePutTodo } from "../../service/Put/usePutTodo";
 import { TodoFormValueType } from "../../types/todo";
 import { useCallback } from "react";
+import { useConvert } from "service/convert/useConvert";
+import { useEditTodo } from "service/edit/useEditTodo";
 
 export const useRegistFormSelectSectionDB = () => {
   // console.log("useRegistFormSelectSectionDB");
-  const dbEdited = usePutTodo();
+  const dbEdited = useEditTodo();
   const dbRegistered = usePostTodo();
   const convertFormToEntity = useConvert();
   // 引数の内容によって登録・編集・リターンを選択する

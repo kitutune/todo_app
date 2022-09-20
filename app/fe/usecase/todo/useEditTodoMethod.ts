@@ -1,6 +1,6 @@
-import { useGetTodo } from "../../service/GET/useGetTodo";
-import { useFetchHtmlElement } from "../../service/HtmlElement/useFetchHtmlElement";
 import React, { useCallback } from "react";
+import { useGetTodo } from "service/get/useGetTodo";
+import { useFetchHtmlElement } from "service/htmlElement/useFetchHtmlElement";
 
 export const useEditTodoMethod = () => {
   // console.log("useEditTodoMethod");

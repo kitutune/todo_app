@@ -1,16 +1,16 @@
 import { TodoForm } from "../components/lv4/TodoForm";
-import { useDeleteAllTodo } from "../service/Delete/useDeleteAllTodo";
-import { useGetTodoList } from "../service/GET/useGetTodoList";
 import { TodoFormValueType } from "../types/todo";
 import { ArrayFilter } from "components/lv3/ArrayFilter";
 import { SortButtons } from "components/lv3/SortButtons";
 import { ShowTodoList } from "components/lv4/ShowTodoList";
 import { memo, useCallback, useEffect, useState } from "react";
-import { useTodoForm } from "service/Form/useTodoForm";
 import { useDeleteTodoMethod } from "usecase/todo/useDeleteTodoMethod";
 import { useEditTodoMethod } from "usecase/todo/useEditTodoMethod";
-import { useIsDoneMethod } from "usecase/todo/useIsDoneMethod";
 import { useRegistFormSelectSectionDB } from "usecase/todo/useRegistFormSelectSectionDB";
+import { useDeleteAllTodo } from "service/delete/useDeleteAllTodo";
+import { useTodoForm } from "service/form/useTodoForm";
+import { useGetTodoList } from "service/get/useGetTodoList";
+import { useToggleIsDoneMethod } from "usecase/todo/useToggleIsDoneMethod";
 
 export const TodoFormValue = {
   // ユニーク
@@ -42,7 +42,7 @@ const Todo = memo(() => {
   const getTodoList = useGetTodoList();
   const deleteAllTodo = useDeleteAllTodo();
   const deleteTodoMethod = useDeleteTodoMethod();
-  const isDoneMethod = useIsDoneMethod();
+  const toggleIsDoneMethod = useToggleIsDoneMethod();
   const editTodoMethod = useEditTodoMethod();
   const registFormSelectSectionDB = useRegistFormSelectSectionDB();
 
@@ -93,10 +93,10 @@ const Todo = memo(() => {
   // 済みボタン
   const handleClickIsDoneCheckBox = useCallback(
     async (e: React.MouseEvent<HTMLElement>) => {
-      await isDoneMethod(e);
+      await toggleIsDoneMethod(e);
       loadTodoList();
     },
-    [isDoneMethod, loadTodoList]
+    [toggleIsDoneMethod, loadTodoList]
   );
 
   // 登録と編集

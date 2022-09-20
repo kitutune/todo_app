@@ -2,10 +2,10 @@ import axios from "axios";
 import { useCallback } from "react";
 import { useErrorHandle } from "service/ErrorHandle/useErrorHandle";
 
-export const usePutTodoIsDone = () => {
+export const useToggleTodoIsDone = () => {
   // console.log("usePutTodoIsDone");
   const axiosError = useErrorHandle();
-  const isDoneDbInsert = useCallback(
+  const isDoneToggleDb = useCallback(
     async (id: string) => {
       try {
         // const response =
@@ -17,5 +17,5 @@ export const usePutTodoIsDone = () => {
     [axiosError]
   );
 
-  return isDoneDbInsert;
+  return isDoneToggleDb;
 };

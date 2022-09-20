@@ -3,7 +3,7 @@ import axios from "axios";
 import { useCallback } from "react";
 import { useErrorHandle } from "service/ErrorHandle/useErrorHandle";
 
-export const usePostTodo = () => {
+export const useCreateTodo = () => {
   // console.log("usePostTodo");
   const axiosError = useErrorHandle();
   const BASEURL = "http://localhost:8080/api/regist";
