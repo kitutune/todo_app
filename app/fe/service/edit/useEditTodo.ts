@@ -3,7 +3,7 @@ import axios from "axios";
 import { useCallback } from "react";
 import { useErrorHandle } from "service/ErrorHandle/useErrorHandle";
 
-export const usePutTodo = () => {
+export const useEditTodo = () => {
   // console.log("usePutTodo");
   const axiosError = useErrorHandle();
   const dbEdited = useCallback(

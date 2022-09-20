@@ -1,6 +1,6 @@
-import { useDeleteTodo } from "../../service/Delete/useDeleteTodo";
-import { useFetchHtmlElement } from "../../service/HtmlElement/useFetchHtmlElement";
 import React, { useCallback } from "react";
+import { useDeleteTodo } from "service/delete/useDeleteTodo";
+import { useFetchHtmlElement } from "service/htmlElement/useFetchHtmlElement";
 
 export const useDeleteTodoMethod = () => {
   // console.log("useDeleteTodoMethod");
