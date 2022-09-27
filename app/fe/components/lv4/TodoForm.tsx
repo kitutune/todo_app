@@ -46,13 +46,17 @@ export const TodoForm = memo((props: TodoFormType) => {
             disabled
             label="todoの作成日:productionDate"
             placeholder="todoの作成日"
+            inputFormat="MM/DD/YYYY"
+            labelFormat="MM/YYYY"
             {...form.getInputProps("productionDate")}
           />
-
           <DatePicker
             required
             label="todoの最終期限:finalDeadline"
             placeholder="todoの最終期限"
+            inputFormat="MM/DD/YYYY"
+            labelFormat="MM/YYYY"
+            // defaultValue={form.values.finalDeadline}
             {...form.getInputProps("finalDeadline")}
           />
           <TextInput

@@ -7,7 +7,7 @@ type ShowTodoListType = {
   list: TodoFormValueType[];
   loadTodoList: () => Promise<void>;
   setEditFormData: (arg0: TodoFormValueType) => void;
-  handleClickEditButton: (e: React.MouseEvent<HTMLElement>) => Promise<void>;
+  handleClickEditButton: (e: React.MouseEvent<HTMLElement>) => void;
   handleClickDeleteButton: (e: React.MouseEvent<HTMLElement>) => Promise<void>;
   handleClickIsDoneCheckBox: (
     e: React.MouseEvent<HTMLElement>

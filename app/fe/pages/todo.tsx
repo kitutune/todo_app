@@ -4,12 +4,12 @@ import { ArrayFilter } from "components/lv3/ArrayFilter";
 import { SortButtons } from "components/lv3/SortButtons";
 import { ShowTodoList } from "components/lv4/ShowTodoList";
 import { memo, useCallback, useEffect, useState } from "react";
-import { useDeleteTodoMethod } from "usecase/todo/useDeleteTodoMethod";
-import { useEditTodoMethod } from "usecase/todo/useEditTodoMethod";
-import { useRegistFormSelectSectionDB } from "usecase/todo/useRegistFormSelectSectionDB";
 import { useDeleteAllTodo } from "service/delete/useDeleteAllTodo";
 import { useTodoForm } from "service/form/useTodoForm";
 import { useGetTodoList } from "service/get/useGetTodoList";
+import { useDeleteTodoMethod } from "usecase/todo/useDeleteTodoMethod";
+import { useEditTodoMethod } from "usecase/todo/useEditTodoMethod";
+import { useRegistFormSelectSectionDB } from "usecase/todo/useRegistFormSelectSectionDB";
 import { useToggleIsDoneMethod } from "usecase/todo/useToggleIsDoneMethod";
 
 export const TodoFormValue = {
@@ -55,30 +55,30 @@ const Todo = memo(() => {
     loadTodoList();
   }, [deleteAllTodo, loadTodoList]);
 
-  const formSetTodoEditData = useCallback(
-    (editData: TodoFormValueType) => {
-      if (editData.id === "") {
-        console.log("idが空なので編集データではありません");
-        return;
-      }
-      form.setValues({
-        id: editData.id,
-        productionDate: editData.productionDate,
-        finalDeadline: editData.finalDeadline,
-        todo: editData.todo,
-        isDone: editData.isDone == "true" ? true : false,
-        priority: Number(editData.priority),
-      });
-    },
-    [form]
-  );
+  // const formSetTodoEditData = useCallback(
+  //   (editData: TodoFormValueType) => {
+  //     if (editData.id === "") {
+  //       console.log("idが空なので編集データではありません");
+  //       return;
+  //     }
+  //     form.setValues({
+  //       id: editData.id,
+  //       productionDate: editData.productionDate,
+  //       finalDeadline: editData.finalDeadline,
+  //       todo: editData.todo,
+  //       isDone: editData.isDone == "true" ? true : false,
+  //       priority: Number(editData.priority),
+  //     });
+  //   },
+  //   [form]
+  // );
 
   // 編集ボタン
   const handleClickEditButton = useCallback(
-    async (e: React.MouseEvent<HTMLElement>) => {
-      formSetTodoEditData(await editTodoMethod(e));
+    (e: React.MouseEvent<HTMLElement>) => {
+      editTodoMethod(e, form);
     },
-    [editTodoMethod, formSetTodoEditData]
+    [editTodoMethod, form]
   );
 
   // 削除ボタン
