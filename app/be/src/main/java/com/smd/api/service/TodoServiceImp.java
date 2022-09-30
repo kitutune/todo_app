@@ -122,6 +122,43 @@ public class TodoServiceImp implements TodoService {
         return todoE.getIsDone();
     }
 
+
+    /**
+     * EntityからFormに日付を渡す処理
+     * 
+     * @param DBから取得したDate(java.sql.Date)
+     * @return "yyyy-MM-dd"形式のString
+     */
+    @Override
+    public String dateFormatToString(Date input)  {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(input);
+    }
+
+
+    /**
+     * FormからEntityに日付を渡す処理
+     * 
+     * @param input FEから受け取ったDate
+     * @return "yyyy-MM-dd"にフォーマットしたDate
+     */
+    @Override
+    public Date dateFormat(Date input){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println(sdf.format(input));
+        System.out.println(sdf.format(input).getClass());
+        String strDate = sdf.format(input);
+        strDate = "a";
+        try {
+            System.out.println("Date型 = " + sdf.parse(strDate));
+            return sdf.parse(strDate);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
+            // e.printStackTrace();
+            return null;
+        }
+    }
+
     // BeanUtils.copyPropertiesはListもコピーできるので下記メソッドは必要ない
     // // @Override
     // // public TodoEntity convertFormToEntity(TodoForm todoF) {
