@@ -1,7 +1,5 @@
 package com.smd.api.form;
 
-import java.util.Date;
-
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -15,9 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TodoForm {
     private Integer id;
-    private Date productionDate;
+    private String productionDate;
     @NotNull
-    private Date finalDeadline;
+    private String finalDeadline;
     @NotNull
     private String todo;
     private String isDone;

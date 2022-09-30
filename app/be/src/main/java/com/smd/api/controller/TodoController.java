@@ -84,8 +84,8 @@ public class TodoController {
     public TodoForm getTodoById(@PathVariable("id") Integer id) {
         System.out.println("GET");
         System.out.println("getTodoById");
-        TodoForm todof = todoServiceImp.getTodoById(id);
-        return todof;
+        TodoForm todoF = todoServiceImp.getTodoById(id);
+        return todoF;
     }
 
     /*
