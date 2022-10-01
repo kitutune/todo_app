@@ -23,18 +23,18 @@ export const SortButtons = memo((props: SortButtonsType) => {
       console.log("handleClickSortButton");
 
       const key = buttonName as ReadonlyProperty;
-      // console.log("click : " + key);
 
       const sortLst = props.list.sort(function compareNumbers(a, b) {
-        a = a[key];
-        b = b[key];
-        if (a === b) {
+        // targetPropertyを設定
+        const targetA = a[key];
+        const targetB = b[key];
+        if (targetA === targetB) {
           return 0;
         }
-        if (a > b) {
+        if (targetA > targetB) {
           return 1;
         }
-        // a < b
+        // targetA < targetB
         return -1;
       });
 
