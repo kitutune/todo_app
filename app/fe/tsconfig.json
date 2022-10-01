@@ -2,20 +2,23 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
+    "allowJs": true, // jsの拡張子を許す
     "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
+    "strict": true, // いろいろな要素がTrueになる
+    "forceConsistentCasingInFileNames": true, // ファイルの文字列の大文字小文字を区別するかどうかを指定します。
+    "noEmit": true, // trueにするとコンパイル結果を出力しなくなる。
+    "esModuleInterop": true, // defaultをエクスポートしていない CommonJS 形式のモジュールを、ES Modules でデフォルトインポートする
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "./" // 追加。import文をsrc(今回はapp)からの絶対パスで記述出来る
+    "baseUrl": "./", // 追加。import文をsrc(今回はapp)からの絶対パスで記述出来る
+    "paths": {
+      "@/*": ["./app/*"]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "webpack.config.js"],
   "exclude": ["node_modules"]
 }
