@@ -25,7 +25,7 @@ export const ShowTodoList = memo((props: ShowTodoListType) => {
           <td className="border px-4 py-2 ">
             <Checkbox
               className="flex-col"
-              defaultChecked={todoData.isDone === "true" ? true : false}
+              defaultChecked={todoData.isDone}
               data-id={todoData.id}
               onClick={props.handleClickIsDoneCheckBox}
             />

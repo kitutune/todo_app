@@ -4,6 +4,8 @@ import { ArrayFilter } from "components/lv3/ArrayFilter";
 import { SortButtons } from "components/lv3/SortButtons";
 import { ShowTodoList } from "components/lv4/ShowTodoList";
 import { memo, useCallback, useEffect, useState } from "react";
+import React from "react";
+import { useConvert } from "service/convert/useConvert";
 import { useDeleteAllTodo } from "service/delete/useDeleteAllTodo";
 import { useTodoForm } from "service/form/useTodoForm";
 import { useGetTodoList } from "service/get/useGetTodoList";
@@ -45,33 +47,21 @@ const Todo = memo(() => {
   const toggleIsDoneMethod = useToggleIsDoneMethod();
   const editTodoMethod = useEditTodoMethod();
   const registFormSelectSectionDB = useRegistFormSelectSectionDB();
+  const { convertBEtoFE } = useConvert();
 
   const loadTodoList = useCallback(async () => {
-    setList(await getTodoList());
-  }, [getTodoList]);
+    // any型でDBから取得
+    const beTodoList = await getTodoList();
+    // FE側で利用できるように型にはめる
+    const feTodoList = convertBEtoFE(beTodoList);
+
+    setList(feTodoList);
+  }, [convertBEtoFE, getTodoList]);
 
   const handleClickKillAllTodoButton = useCallback(async () => {
     await deleteAllTodo();
     loadTodoList();
   }, [deleteAllTodo, loadTodoList]);
-
-  // const formSetTodoEditData = useCallback(
-  //   (editData: TodoFormValueType) => {
-  //     if (editData.id === "") {
-  //       console.log("idが空なので編集データではありません");
-  //       return;
-  //     }
-  //     form.setValues({
-  //       id: editData.id,
-  //       productionDate: editData.productionDate,
-  //       finalDeadline: editData.finalDeadline,
-  //       todo: editData.todo,
-  //       isDone: editData.isDone == "true" ? true : false,
-  //       priority: Number(editData.priority),
-  //     });
-  //   },
-  //   [form]
-  // );
 
   // 編集ボタン
   const handleClickEditButton = useCallback(
