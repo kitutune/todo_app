@@ -1,9 +1,11 @@
 package com.smd.api.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +25,8 @@ public class TodoServiceImp implements TodoService {
         List<TodoEntity> todoListE = todoRepository.findAll();
         List<TodoForm> todoListF = todoListE.stream().map(todoE -> new TodoForm(
                 todoE.getId(),
-                todoE.getProductionDate(),
-                todoE.getFinalDeadline(),
+                dateFormatToString(todoE.getProductionDate()),
+                dateFormatToString(todoE.getFinalDeadline()),
                 todoE.getTodo(),
                 todoE.getIsDone(),
                 todoE.getPriority()
@@ -52,23 +54,32 @@ public class TodoServiceImp implements TodoService {
     @Override
     public ResponseEntity<TodoEntity> saveTodo(TodoForm todoF) {
         // TodoFormをDBに登録できるように受け取るTodoEntityのインスタンスを作成
-        TodoEntity todoE = new TodoEntity();
-        // FormをEntityにコンバート
-        BeanUtils.copyProperties(todoF, todoE);
+        TodoEntity todoE = new TodoEntity(todoF.getId(),
+                dateFormatToDate(todoF.getProductionDate()),
+                dateFormatToDate(todoF.getFinalDeadline()),
+                todoF.getTodo(),
+                todoF.getIsDone(),
+                todoF.getPriority());
+
         System.out.println(todoE.getTodo());
         // Jpaの機能でDBに登録する
         todoRepository.save(todoE);
+
         return ResponseEntity.ok(todoE);
     }
 
     @Override
     public TodoForm getTodoById(Integer id) {
-        // FE側に返すようのTodoFormインスタンスを作成
-        TodoForm todoF = new TodoForm();
         // DBからidでtodoデータを取得
         TodoEntity todoE = todoRepository.getReferenceById(id);
         // EntityをFormにコンバート
-        BeanUtils.copyProperties(todoE, todoF);
+        TodoForm todoF = new TodoForm(
+                todoE.getId(),
+                dateFormatToString(todoE.getProductionDate()),
+                dateFormatToString(todoE.getFinalDeadline()),
+                todoE.getTodo(),
+                todoE.getIsDone(),
+                todoE.getPriority());
         return todoF;
     }
 
@@ -79,8 +90,8 @@ public class TodoServiceImp implements TodoService {
         // 受け取ったTodoFormを登録済みのTodoEntityに上書きする（編集する）
         todoE.setPriority(todoF.getPriority());
         todoE.setTodo(todoF.getTodo());
-        todoE.setProductionDate(todoF.getProductionDate());
-        todoE.setFinalDeadline(todoF.getFinalDeadline());
+        todoE.setProductionDate(dateFormatToDate(todoF.getProductionDate()));
+        todoE.setFinalDeadline(dateFormatToDate(todoF.getFinalDeadline()));
         todoE.setIsDone(todoF.getIsDone());
         todoRepository.save(todoE);
         System.out.println(todoF.getTodo() == todoRepository.getReferenceById(id).getTodo());
@@ -122,25 +133,35 @@ public class TodoServiceImp implements TodoService {
         return todoE.getIsDone();
     }
 
-    // BeanUtils.copyPropertiesはListもコピーできるので下記メソッドは必要ない
-    // // @Override
-    // // public TodoEntity convertFormToEntity(TodoForm todoF) {
-    // // // 取得したTodoFormをコピーするEntityのインスタンスを作成する
-    // // TodoEntity todoE = new TodoEntity();
-    // // // 同じ項目名の場合はcopyPropertiesでコピーできる
-    // // // BeanUtils.copyProperties(元になるBean,コピー先のBean)
-    // // BeanUtils.copyProperties(todoF, todoE);
-    // // return todoE;
-    // // }
+    /**
+     * EntityからFormに日付を渡す処理
+     * 
+     * @param DBから取得したDate(java.sql.Date)
+     * @return "yyyy-MM-dd"形式のString
+     */
+    @Override
+    public String dateFormatToString(Date input) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(input);
+    }
 
-    // // @Override
-    // // public TodoForm convertEntityToForm(TodoEntity todoE) {
-    // // // 取得したTodoEntityをコピーするFormのインスタンスを作成する
-    // // TodoForm todoF = new TodoForm();
-    // // // 同じ項目名の場合はcopyPropertiesでコピーできる
-    // // // BeanUtils.copyProperties(元になるBean,コピー先のBean)
-    // // BeanUtils.copyProperties(todoE, todoF);
-    // // return todoF;
-    // // }
+    /**
+     * FormからEntityに日付を渡す処理
+     * 
+     * @param input FEから受け取ったDate
+     * @return "yyyy-MM-dd"にフォーマットしたDate
+     */
+    @Override
+    public Date dateFormatToDate(String input) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return sdf.parse(input);
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
+            // e.printStackTrace();
+            return null;
+        }
+
+    }
 
 }

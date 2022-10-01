@@ -4,16 +4,20 @@ import { useCallback } from "react";
 export const useFormatDate = () => {
   // console.log("useFormatDate");
 
-  const formatDateTypeToDate = useCallback((date: Date) => {
+  const formatDateTypeToDate = useCallback((date: Date): Date => {
     // 引数はDate型しか来ないのだが、not a functionになることがあるので再定義している
     const reFormatDate = new Date(date);
-    const formatedDate =
+
+    const formatDate =
       reFormatDate.getFullYear() +
       "/" +
       (reFormatDate.getMonth() + 1) +
       "/" +
       reFormatDate.getDay();
-    return formatedDate;
+
+    const newFormatDate = new Date(formatDate);
+
+    return newFormatDate;
   }, []);
 
   return formatDateTypeToDate;

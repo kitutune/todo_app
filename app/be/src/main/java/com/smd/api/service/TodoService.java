@@ -1,5 +1,6 @@
 package com.smd.api.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -44,12 +45,8 @@ public interface TodoService {
     // isDoneのbooleanを書き換える
     String toggleIsDone(Integer id);
 
-    // 下記２つのメソッドはBeanUtils.copyPropertiesを使用するので必要ない
-    // 必要ない
-    // // FormからEntityにコンバートするメソッド
-    // TodoEntity convertFormToEntity(TodoForm todoF);
+    Date dateFormatToDate(String input);
 
-    // // EntityからFormにコンバートするメソッド
-    // TodoForm convertEntityToForm(TodoEntity todoE);
+    String dateFormatToString(Date input);
 
 }
