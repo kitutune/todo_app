@@ -8,7 +8,7 @@ export const useRegistFormSelectSectionDB = () => {
   // console.log("useRegistFormSelectSectionDB");
   const dbEdited = useEditTodo();
   const dbRegistered = useCreateTodo();
-  const convertFormToEntity = useConvert();
+  const {convertFormFEToBE }= useConvert();
   // 引数の内容によって登録・編集・リターンを選択する
   const registFormSelectSectionDB = useCallback(
     async (formTodo: TodoFormValueType) => {
@@ -17,7 +17,7 @@ export const useRegistFormSelectSectionDB = () => {
         return console.log("空の値は登録できません");
       }
       // ②form形式のtodoをentity形式にコンバート
-      const dbTodo = convertFormToEntity(formTodo);
+      const dbTodo = convertFormFEToBE(formTodo);
 
       // ③編集データを補完するrecoilEditTodoにデータが存在するなら編集データとして処理する
       if (!(formTodo.id == "")) {
@@ -29,7 +29,7 @@ export const useRegistFormSelectSectionDB = () => {
         await dbRegistered(dbTodo);
       }
     },
-    [convertFormToEntity, dbEdited, dbRegistered]
+    [convertFormFEToBE, dbEdited, dbRegistered]
   );
 
   return registFormSelectSectionDB;

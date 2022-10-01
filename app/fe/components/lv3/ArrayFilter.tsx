@@ -21,6 +21,8 @@ export const ArrayFilter = memo((props: propsType) => {
   // props.setResult(props.list.filter((todo) => todo.todo.match(text)));
 
   useEffect(() => {
+    // props.list.lengthだけだと初期値がundefinedの場合にerrorになる
+    if (typeof props.list === "undefined" || props.list.length === 0) return;
     props.setResult(props.list.filter((todo) => todo.todo.match(text)));
   }, [props, text]);
 
