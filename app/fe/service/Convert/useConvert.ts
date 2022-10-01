@@ -1,20 +1,44 @@
+import { TodoBeValueType, TodoFormValueType } from "../../types/todo";
 import { useCallback } from "react";
-import { TodoFormValueType } from "../../types/todo";
 
-// form形式のtodoをentity形式にコンバート
 export const useConvert = () => {
   // console.log("useConvert");
 
-  const convertFormToEntity =useCallback( (formTodo: TodoFormValueType) => {
+  const convertFormFEToBE = useCallback((formTodo: TodoFormValueType) => {
     return {
-      id: Number(formTodo.id),
+      id: formTodo.id,
       productionDate: formTodo.productionDate,
       finalDeadline: formTodo.finalDeadline,
       todo: formTodo.todo,
       isDone: String(formTodo.isDone),
       priority: String(formTodo.priority),
     };
-  },[])
+  }, []);
 
-  return convertFormToEntity;
+  const convertBEtoFE = useCallback((beTodoLists: TodoBeValueType[]) => {
+    if (beTodoLists === undefined) {
+      return beTodoLists;
+    }
+
+    const feTodoList = beTodoLists.map((beTodo) => {
+      // setValuesの中で三項演算子を使いたく無いので
+      let feIsDone: boolean;
+      if (beTodo.isDone.toString() === "true") {
+        feIsDone = true;
+      } else {
+        feIsDone = false;
+      }
+      return {
+        id: beTodo.id,
+        productionDate: beTodo.productionDate,
+        finalDeadline: beTodo.finalDeadline,
+        todo: beTodo.todo,
+        isDone: feIsDone,
+        priority: Number(beTodo.priority),
+      };
+    });
+    return feTodoList;
+  }, []);
+
+  return { convertFormFEToBE, convertBEtoFE };
 };

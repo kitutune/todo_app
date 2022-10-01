@@ -8,21 +8,25 @@ type formType = {
 export const useFormSetTodoEditData = () => {
   const formSetTodoEditData = useCallback(
     (editData: TodoFormValueType, form: formType) => {
+      // setValuesの中で三項演算子を使いたく無いので
+      let isDoneValue: boolean;
       if (editData.id === "") {
         console.log("idが空なので編集データではありません");
         return;
       }
-      console.log(editData.finalDeadline);
-      console.log(Date().toString());
-      
+      // editDataとしてDBから取得するisDoneはstring型の"true"や"false"なのでここでbooleanに変換する
+      if (editData.isDone.toString() === "true") {
+        isDoneValue = true;
+      } else {
+        isDoneValue = false;
+      }
 
       form.setValues({
         id: editData.id,
         productionDate: new Date(editData.productionDate),
         finalDeadline: new Date(editData.finalDeadline),
-        // finalDeadline: "2022-09-18",
         todo: editData.todo,
-        isDone: editData.isDone == "true" ? true : false,
+        isDone: isDoneValue,
         priority: Number(editData.priority),
       });
     },
