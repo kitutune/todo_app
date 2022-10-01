@@ -25,8 +25,8 @@ export const useFormSetTodoEditData = () => {
 
       form.setValues({
         id: editData.id,
-        productionDate: editData.productionDate,
-        finalDeadline: editData.finalDeadline,
+        productionDate: new Date(editData.productionDate),
+        finalDeadline: new Date(editData.finalDeadline),
         // finalDeadline: "2022-09-18",
         todo: editData.todo,
         isDone: editData.isDone == "true" ? true : false,

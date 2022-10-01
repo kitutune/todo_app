@@ -35,13 +35,13 @@ export const ShowTodoList = memo((props: ShowTodoListType) => {
             {/* ライブラリdayjsを使用してDate型をフォーマット */}
             {dayjs(todoData.productionDate)
               .locale("ja")
-              .format("YYYY/MM/DD(dd)")}
+              .format("YYYY-MM-DD")}
           </td>
           <td className="border px-4 py-2">
             {/* ライブラリdayjsを使用してDate型をフォーマット */}
             {dayjs(todoData.finalDeadline)
               .locale("ja")
-              .format("YYYY/MM/DD(dd)")}
+              .format("YYYY-MM-DD")}
           </td>
           <td className="border px-4 py-2">{todoData.todo}</td>
           <td className="border px-4 py-2">{todoData.isDone}</td>

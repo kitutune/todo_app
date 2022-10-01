@@ -14,7 +14,6 @@ export const useTodoForm = () => {
       //   productionDate_value.length < 1 ? "名前は必須入力です" : null,
       finalDeadline: (finalDeadline_value, formValue) =>
         // 日付までを抜き出して比較
-        // Stringで比較できる様子
         formatDateTypeToDate(formValue.finalDeadline) <
         formatDateTypeToDate(formValue.productionDate)
           ? "作成日より前の日付は選択できません"
