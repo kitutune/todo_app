@@ -2,14 +2,7 @@ import { useCallback } from "react";
 import { TodoFormValueType } from "types/todo";
 
 type formType = {
-  setValues: (arg0: {
-    id: string;
-    productionDate: Date;
-    finalDeadline: Date;
-    todo: string;
-    isDone: boolean;
-    priority: number;
-  }) => void;
+  setValues: (arg0: TodoFormValueType) => void;
 };
 
 export const useFormSetTodoEditData = () => {

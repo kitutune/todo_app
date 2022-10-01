@@ -1,4 +1,4 @@
-import { TodoFormValueType } from "../../types/todo";
+import { TodoBeValueType } from "../../types/todo";
 import axios from "axios";
 import { useCallback } from "react";
 import { useErrorHandle } from "service/errorHandle/useErrorHandle";
@@ -8,7 +8,7 @@ export const useCreateTodo = () => {
   const axiosError = useErrorHandle();
   const BASEURL = "http://localhost:8080/api/regist";
   const dbRegistered = useCallback(
-    async (formTodo: TodoFormValueType) => {
+    async (formTodo: TodoBeValueType) => {
       try {
         await axios.post(BASEURL, formTodo, {
           // デフォルト値がapplication/jsonなので記述必要なし
