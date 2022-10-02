@@ -65,11 +65,11 @@ export const TodoForm = memo((props: TodoFormType) => {
             placeholder="やることを入力してください"
             {...form.getInputProps("todo")}
           />
-          <Checkbox
+          {/* <Checkbox
             label="実行済み？"
             placeholder="実行済みならチェックしてください"
             {...form.getInputProps("isDone", { type: "checkbox" })}
-          />
+          /> */}
           <NumberInput
             label="重要度"
             placeholder="重要度を１〜３で入力してください"
