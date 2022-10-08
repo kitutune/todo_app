@@ -10,8 +10,6 @@ export const useTodoForm = () => {
   const form = useForm({
     initialValues: TodoFormValue,
     validate: {
-      // productionDate: (productionDate_value) =>
-      //   productionDate_value.length < 1 ? "名前は必須入力です" : null,
       finalDeadline: (finalDeadline_value, formValue) =>
         // 日付までを抜き出して比較
         formatDateTypeToDate(formValue.finalDeadline) <
@@ -19,17 +17,11 @@ export const useTodoForm = () => {
           ? "作成日より前の日付は選択できません"
           : null,
       todo: (todo_value) =>
-        todo_value.length < 1 ? "todoは必須入力です" : null,
-      // isDone: (isDone_value) =>
-      //   isDone_value.length < 1 ? "todoは必須入力です" : null,
-      // priority: (priority_value) =>
-      //   priority_value.length < 1 ? "todoは必須入力です" : null,
-      // email: (mail_value) =>
-      //   mail_value.length === 0
-      //     ? null
-      //     : /^\S+@\S+$/.test(mail_value)
-      //     ? null
-      //     : "メールアドレス形式で入力してください",
+        0 == todo_value.length
+          ? "todoは必須入力です"
+          : todo_value.length > 50
+          ? "todoは50文字以内で入力してください"
+          : null,
     },
   });
 
