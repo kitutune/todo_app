@@ -1,4 +1,4 @@
-import { TodoBeValueType, TodoFormValueType } from "../../types/todo";
+import { TodoBackendValueType, TodoFormValueType } from "../../types/todo";
 import { useFormatDate } from "./useFormatDate";
 import { useCallback } from "react";
 
@@ -19,10 +19,14 @@ export const useConvert = () => {
     [dateToStr]
   );
 
-  const convertBEtoFE = useCallback((beTodoLists: TodoBeValueType[]) => {
-    if (beTodoLists === undefined) {
-      return beTodoLists;
-    }
+  const convertBEtoFE = useCallback(
+    (beTodoLists: TodoBackendValueType[]): TodoFormValueType[] => {
+      if (beTodoLists === undefined) {
+        return [];
+      }
+      if (beTodoLists.length === 0) {
+        return [];
+      }
 
       const feTodoList = beTodoLists.map((beTodo) => {
         // setValuesの中で三項演算子を使いたく無いので

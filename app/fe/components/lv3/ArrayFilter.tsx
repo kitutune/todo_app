@@ -15,17 +15,18 @@ type propsType = {
 // eslint-disable-next-line react/display-name
 export const ArrayFilter = memo((props: propsType) => {
   // console.log("ArrayFilter");
-
   const [text, setText] = useState("");
-
-  // props.setResult(props.list.filter((todo) => todo.todo.match(text)));
-
   useEffect(() => {
     // props.list.lengthだけだと初期値がundefinedの場合にerrorになる
-    if (typeof props.list === "undefined" || props.list.length === 0) return;
+    if (typeof props.list === "undefined") {
+      return props.setResult([]);
+    }
+    if (props.list.length === 0) {
+      return props.setResult([]);
+    }
+
     props.setResult(props.list.filter((todo) => todo.todo.match(text)));
   }, [props, text]);
-
   return (
     <>
       <label htmlFor="search">Search</label>
