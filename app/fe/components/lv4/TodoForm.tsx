@@ -2,7 +2,6 @@ import { TodoFormValueType } from "../../types/todo";
 import {
   Button,
   Center,
-  Checkbox,
   Group,
   NumberInput,
   TextInput,
