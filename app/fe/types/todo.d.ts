@@ -12,7 +12,7 @@ export type TodoFormValueType = {
   priority: number;
 };
 
-export type TodoBeValueType = {
+export type TodoBackendValueType = {
   id: string;
   // todoの作成日（編集時に更新するかはまだ未定）
   productionDate: string;

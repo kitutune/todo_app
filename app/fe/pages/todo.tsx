@@ -113,6 +113,7 @@ const Todo = memo(() => {
         loadTodoList={loadTodoList}
         handleClickSendDbButton={handleClickSendDbButton}
       />
+      {/* ShowTodoListで表示するresultを返す */}
       <ArrayFilter setResult={setResult} list={list} />
       <button onClick={handleClickKillAllTodoButton}>全てのTodo削除</button>
       <table className="table-auto">
