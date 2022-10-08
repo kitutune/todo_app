@@ -15,9 +15,9 @@ export type TodoFormValueType = {
 export type TodoBeValueType = {
   id: string;
   // todoの作成日（編集時に更新するかはまだ未定）
-  productionDate: Date;
+  productionDate: string;
   // todoの最終期限
-  finalDeadline: Date;
+  finalDeadline: string;
   // やること
   todo: string;
   // 作業済み

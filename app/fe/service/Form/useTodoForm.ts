@@ -6,7 +6,7 @@ export const useTodoForm = () => {
   // console.log("useTodoForm");
 
   // useHook
-  const formatDateTypeToDate = useFormatDate();
+  const { formatDateTypeToDate } = useFormatDate();
   const form = useForm({
     initialValues: TodoFormValue,
     validate: {
