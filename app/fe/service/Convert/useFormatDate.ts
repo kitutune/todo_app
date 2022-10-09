@@ -13,7 +13,7 @@ export const useFormatDate = () => {
       "-" +
       (tmpDate.getMonth() + 1) +
       "-" +
-      tmpDate.getDay();
+      tmpDate.getDate();
 
     return strDate;
   }, []);
