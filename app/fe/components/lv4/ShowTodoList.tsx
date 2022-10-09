@@ -13,7 +13,8 @@ type ShowTodoListType = {
     e: React.MouseEvent<HTMLElement>
   ) => Promise<void>;
 };
-
+// ShowTodoListはリストデータがある前提で作成
+// リストデータのある無しの担保はしない
 // eslint-disable-next-line react/display-name
 export const ShowTodoList = memo((props: ShowTodoListType) => {
   // console.log("ShowTodoList");

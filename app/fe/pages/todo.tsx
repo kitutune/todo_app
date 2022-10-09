@@ -116,18 +116,22 @@ const Todo = memo(() => {
       {/* ShowTodoListで表示するresultを返す */}
       <ArrayFilter setResult={setResult} list={list} />
       <button onClick={handleClickKillAllTodoButton}>全てのTodo削除</button>
-      <table className="table-auto">
-        <thead>
-          <tr>
-            <th>is？</th>
-            <SortButtons
-              setResult={setResult}
-              list={list}
-              editFormData={editFormData}
-            />
-          </tr>
-        </thead>
-        {result.length === 0 ? null : (
+      {result.length === 0 ? (
+        <div>
+        表示できるTodoデータがありません
+        </div>
+      ) : (
+        <table className="table-auto">
+          <thead>
+            <tr>
+              <th>is？</th>
+              <SortButtons
+                setResult={setResult}
+                list={list}
+                editFormData={editFormData}
+              />
+            </tr>
+          </thead>
           <ShowTodoList
             loadTodoList={loadTodoList}
             list={result}
@@ -136,8 +140,8 @@ const Todo = memo(() => {
             handleClickDeleteButton={handleClickDeleteButton}
             handleClickIsDoneCheckBox={handleClickIsDoneCheckBox}
           />
-        )}
-      </table>
+        </table>
+      )}
     </div>
   );
 });
