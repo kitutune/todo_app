@@ -1,5 +1,11 @@
 import { SortButton } from "components/lv2/SortButton";
-import React, { Dispatch, memo, SetStateAction, useCallback } from "react";
+import React, {
+  Dispatch,
+  memo,
+  SetStateAction,
+  useCallback,
+  useState,
+} from "react";
 import { TodoFormValueType } from "types/todo";
 
 type SortButtonsType = {
@@ -18,29 +24,39 @@ export const SortButtons = memo((props: SortButtonsType) => {
   type Property = keyof TodoFormValueType;
   type ReadonlyProperty = Readonly<Property>;
 
+  const [beforeKey, setBeforeKey] = useState("");
+
   const handleClickSortButton = useCallback(
     (buttonName: string) => {
       console.log("handleClickSortButton");
 
       const key = buttonName as ReadonlyProperty;
 
+      // 降順にすべきかどうか（前回と同じボタンを押した場合は降順にする）
+      const shouldDesc = beforeKey === buttonName;
       const sortLst = props.list.sort(function compareNumbers(a, b) {
         // targetPropertyを設定
         const targetA = a[key];
         const targetB = b[key];
-        if (targetA === targetB) {
+
+        if (shouldDesc) {
+          if (targetA < targetB) return 1;
+          if (targetA > targetB) return -1;
           return 0;
         }
-        if (targetA > targetB) {
-          return 1;
-        }
-        // targetA < targetB
-        return -1;
+        // 上記以外なら、昇順にする。
+        if (targetA < targetB) return -1;
+        if (targetA > targetB) return 1;
+        return 0;
       });
 
       props.setResult([...sortLst]);
+      // ２度同じボタンを押したら、ステートを初期化する（降順モードから昇順モードに戻したいので）
+      setBeforeKey((before: string) =>
+        before === buttonName ? "" : buttonName
+      );
     },
-    [props]
+    [beforeKey, props]
   );
 
   const TodoFormValueOfKey = Object.keys(props.editFormData);
