@@ -22,6 +22,14 @@ export const useTodoForm = () => {
           : todo_value.length > 50
           ? "todoは50文字以内で入力してください"
           : null,
+      priority: (priorityValue) =>
+        priorityValue == undefined
+          ? "重要度は必須入力です"
+          : priorityValue < 1
+          ? "重要度は１〜３で選択してください"
+          : priorityValue > 3
+          ? "重要度は１〜３で選択してください"
+          : null,
     },
   });
 
