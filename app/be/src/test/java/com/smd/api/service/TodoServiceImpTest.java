@@ -1,10 +1,10 @@
 package com.smd.api.service;
 
+import org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 // import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -23,13 +23,11 @@ import com.smd.api.repository.TodoRepository;
 //	}
 // テスト対象
 
-public class TodoServiceImpTest {  
-	@Test  
-	public void testCollectionSize() {  
-	    List<String> catNames = Arrays.asList("Phibi", "Monica");  
-	  
-	    assertThat(catNames, hasSize(2));  
+public class TodoServiceImpTest {
+	@Test
+	public void testCollectionSize() {
+		List<String> catNames = Arrays.asList("Phibi", "Monica");
+
+		assertThat(catNames, hasSize(2));
 	}
 }
-
-
