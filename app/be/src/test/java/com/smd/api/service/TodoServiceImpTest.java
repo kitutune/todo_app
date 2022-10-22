@@ -11,6 +11,6 @@ public class TodoServiceImpTest {
 	public void testCollectionSize() {
 		List<String> catNames = Arrays.asList("Phibi", "Monica","kkkk");
 
-		Assertions.assertThat(catNames).hasSize(2);
+		Assertions.assertThat(catNames).hasSize(3);
 	}
 }
