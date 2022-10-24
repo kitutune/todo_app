@@ -1,4 +1,11 @@
 # todo_app
+- SpringBoot:v3.0.0
+- JDK:17
+- Next.js:v12
+- React:v18
+- mysql:v8
+
+
 
 現状の状態で起動するには
 
