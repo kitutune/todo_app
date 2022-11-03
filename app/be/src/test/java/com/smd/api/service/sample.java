@@ -1,0 +1,70 @@
+package com.smd.api.service;
+
+import org.dbunit.IDatabaseTester;
+import org.dbunit.JdbcDatabaseTester;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.XmlDataSet;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.InputStream;
+// import java.sql.Connection;
+// import java.sql.PreparedStatement;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
+
+import static org.dbunit.Assertion.assertEquals;
+
+public class sample {
+    static IDatabaseTester databaseTester;
+    static IDatabaseConnection connection;
+    // /** ロガー */ いれてみたけど使っていない
+    // private static Logger logger = LoggerFactory.getLogger(sample.class);
+
+    @BeforeAll
+    static void beforeAll() throws Exception {
+        databaseTester = new JdbcDatabaseTester("com.mysql.cj.jdbc.Driver",
+                "jdbc:mysql://mysql/todo_schema", "dev_usr",
+                "dev_usr_pass");
+        // ここで実際にDBにアクセスしている？
+        connection = databaseTester.getConnection();
+
+        // DB初期化(テーブル作成)
+
+    }
+
+    @BeforeEach
+    void beforeEach() throws Exception {
+        // 参考
+        // XmlDataSet setUpDataSet =
+        // readXmlDataSet("/sandbox/dbunit/HelloDbUnitTest/test/setUp.xml");
+        XmlDataSet setUpDataSet = readXmlDataSet("/com/smd/api/service/TodoServiceImpTestResource/input.xml");
+        databaseTester.setDataSet(setUpDataSet);
+
+        databaseTester.onSetup();
+    }
+
+    @Test
+    void test() throws Exception {
+        XmlDataSet expected = readXmlDataSet("/com/smd/api/service/TodoServiceImpTestResource/expected.xml");
+        IDataSet actual = connection.createDataSet();
+        assertEquals(expected, actual);
+    }
+
+    @AfterAll
+    static void afterAll() throws Exception {
+        if (connection != null) {
+            connection.close();
+        }
+    }
+
+    private XmlDataSet readXmlDataSet(String path) throws Exception {
+        try (InputStream inputStream = getClass().getResourceAsStream(path)) {
+            return new XmlDataSet(inputStream);
+        }
+    }
+
+}
