@@ -152,6 +152,9 @@ gradle-app.setting
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
 
+#junitのjarファイルを無視しないように設定
+!junit-platform-console-standalone-1.9.0.jar
+
 # Avoid ignore Gradle wrappper properties
 !gradle-wrapper.properties
 
