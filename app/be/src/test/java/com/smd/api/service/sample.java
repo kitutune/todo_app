@@ -3,7 +3,9 @@ package com.smd.api.service;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.Column;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.XmlDataSet;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -49,8 +51,34 @@ public class sample {
 
     @Test
     void test() throws Exception {
+        // URL inputFile =
+        // TodoServiceImpTest.class.getResource("TodoServiceImpTestResource/expected.xml");
         XmlDataSet expected = readXmlDataSet("/com/smd/api/service/TodoServiceImpTestResource/expected.xml");
         IDataSet actual = connection.createDataSet();
+        ITable table = actual.getTable("todo");
+        ITable table2 = expected.getTable("todo");
+        Column[] cols = table.getTableMetaData().getColumns();
+        for (String tb : actual.getTableNames()) {
+            System.out.println("DBの実測値" + tb);
+        }
+        for (String tb : expected.getTableNames()) {
+            System.out.println("DBの期待値" + tb);
+        }
+
+        // System.out.println("DBの実測値" + actual.getTableNames());
+        // System.out.println("DBの期待値" + expected.getTableNames());
+        for (int row = 0; row < table.getRowCount(); row++) {
+
+            for (Column col : cols) {
+                // System.out.println("1actualの中身は" + col.getColumnName());
+                // System.out.println("2actualの中身は" + col.getDefaultValue());
+                // System.out.println("3actualの中身は" + col.getRemarks());
+                // System.out.println("4actualの中身は" + col.getSqlTypeName());
+                System.out.println("DBの中身は" + table.getValue(row, col.getColumnName()));
+
+            }
+        }
+
         assertEquals(expected, actual);
     }
 
