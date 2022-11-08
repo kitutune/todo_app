@@ -13,6 +13,8 @@
 	"MS-CEINTL.vscode-language-pack-ja",
 	"esbenp.prettier-vscode",
 	"GabrielBB.vscode-lombok",
-	"vscjava.vscode-java-pack"
+	"vscjava.vscode-java-pack",
+	"Pivotal.vscode-boot-dev-pack",
+	"Pivotal.vscode-spring-boot"
 ]
 }
